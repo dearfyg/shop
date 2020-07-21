@@ -8,18 +8,21 @@ use App\Model\Goods;
 use App\Model\Cart;
 class CartController extends Controller
 {
-    public function cart_add($id){
+    public function cart_add(){
+        $goods_id=3;
         $data=[
-          'goods_id'=>$id,
+          'goods_id'=>$goods_id,
             "user_id"=>3,
             "buy_num"=>1,
             "add_time"=>time()
         ];
         Cart::insert($data);
+        return redirect("/cartlist");
     }
     //商品购物车展示
-    public function cartlist($id)
+    public function cartlist()
     {
+        $id=3;
         //查询用户购物车表中数据
         $cartInfo=Cart::join("admin_goods","admin_cart.goods_id","admin_goods.goods_id")
             ->where(['user_id'=>$id,"is_del"=>1])
