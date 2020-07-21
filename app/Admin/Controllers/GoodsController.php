@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Model\Category;
 use App\Model\Goods;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -26,18 +27,22 @@ class GoodsController extends AdminController
     {
         $grid = new Grid(new Goods());
 
-        $grid->column('goods_id', __('Goods id'));
-        $grid->column('goods_name', __('Goods name'));
-        $grid->column('goods_price', __('Goods price'));
-        $grid->column('goods_num', __('Goods num'));
-        $grid->column('goods_img', __('Goods img'))->image();
-        $grid->column('goods_desc', __('Goods desc'));
-        $grid->column('goods_score', __('Goods score'));
-        $grid->column('is_new', __('Is new'));
-        $grid->column('is_up', __('Is up'));
-        $grid->column('cate_id', __('Cate id'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('goods_id', __('商品id'));
+        $grid->column('goods_name', __('商品名称'));
+        $grid->column('goods_price', __('商品价格'));
+        $grid->column('goods_num', __('商品库存'));
+        $grid->column('goods_img', __('商品图片'))->image();
+        $grid->column('goods_desc', __('商品详情'));
+        $grid->column('goods_score', __('商品积分'));
+        $grid->column('is_new', __('是否新品'))->display(function ($released) {
+            return $released ? '是' : '否';
+        });
+        $grid->column('is_up', __('是否上架'))->display(function ($released) {
+            return $released ? '是' : '否';
+        });
+        $grid->column('category.cate_name', __('分类'));
+        $grid->column('created_at', __('创建时间'));
+        $grid->column('updated_at', __('修改时间'));
 
         return $grid;
     }
@@ -77,16 +82,15 @@ class GoodsController extends AdminController
     {
         $form = new Form(new Goods());
 
-        $form->text('goods_name', __('Goods name'));
-        $form->number('goods_price', __('Goods price'));
-        $form->number('goods_num', __('Goods num'));
-        $form->image('goods_img', __('Goods img'));
-        $form->text('goods_desc', __('Goods desc'));
-        $form->number('goods_score', __('Goods score'));
-        $form->number('is_new', __('Is new'));
-        $form->number('is_up', __('Is up'));
-        $form->number('cate_id', __('Cate id'));
-
+        $form->text('goods_name', __('商品名称'));
+        $form->number('goods_price', __('商品价格'));
+        $form->number('goods_num', __('商品库存'));
+        $form->image('goods_img', __('商品图片'));
+        $form->text('goods_desc', __('商品详情'));
+        $form->number('goods_score', __('商品积分'));
+        $form->radio('is_new', __('是否新品'))->options([0=>"否",1=>"是"]);
+        $form->radio('is_up', __('是否上架'))->options([0=>"否",1=>"是"]);
+        $form->select('cate_id', __('分类'))->options(Category::all()->pluck('cate_name','id'));
         return $form;
     }
 }
