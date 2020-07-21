@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get("/cartlist/{id}","Index\CartController@cartlist");
+Route::get("/cart/gopay","Index\CartController@gopay");
