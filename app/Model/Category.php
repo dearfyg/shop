@@ -3,15 +3,18 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Encore\Admin\Traits\AdminBuilder;
+use Encore\Admin\Traits\ModelTree;
 class Category extends Model
 {
-    protected $table="Category";
-    protected $primaryKey="id";
-    protected $guarded=[];
+    use ModelTree,AdminBuilder;
 
-    public function goods()
+    protected $table = 'Category';
+    public function __construct(array $attributes = [])
     {
-        return $this->belongsTo(Goods::class);
+        parent::__construct($attributes);
+        $this->setParentColumn('p_id');  // 父ID
+        $this->setOrderColumn('sort'); // 排序
+        $this->setTitleColumn('cate_name'); // 标题
     }
 }
