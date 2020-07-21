@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get("/order/order/{order_id}","Index\OrderController@order"); //提交订单页面
+Route::get("/order/pay/{order_id}","Index\OrderController@pay"); //支付
+Route::get("/order/success","Index\OrderController@success"); //支付
