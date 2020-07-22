@@ -15,11 +15,19 @@ class CartController extends Controller
             "buy_num"=>1,
             "add_time"=>time()
         ];
-        Cart::insert($data);
+        $res=Cart::where("goods_id",$id)->first();
+        if($res){
+            $buy_num=Cart::where("goods_id",$id)->value("buy_num");
+            Cart::where("goods_id",$id)->update(['buy_num'=>$buy_num+1]);
+        }else{
+            Cart::insert($data);
+        }
+
     }
     //商品购物车展示
-    public function cartlist($id)
+    public function cartlist()
     {
+        $id=3;
         //查询用户购物车表中数据
         $cartInfo=Cart::join("admin_goods","admin_cart.goods_id","admin_goods.goods_id")
             ->where(['user_id'=>$id,"is_del"=>1])
@@ -39,6 +47,13 @@ class CartController extends Controller
         }
         echo $money;
     }
-    //点击支付
-
+    //点击获取小计i
+    public function subtotal(){
+        $buy_num=request()->buy_num;
+        $goods_id=request()->goods_id;
+        $price=Goods::where("goods_id",$goods_id)->value("goods_price");
+        $subtotal=$buy_num*$price;
+        Cart::where("goods_id",$goods_id)->update(['buy_num'=>$buy_num]);
+        return $subtotal;
+    }
 }

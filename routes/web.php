@@ -14,5 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get("/cartlist/{id}","Index\CartController@cartlist");
+Route::get("/cartlist","Index\CartController@cartlist");
 Route::get("/cart/gopay","Index\CartController@gopay");
+Route::get("cart/subtotal","Index\CartController@subtotal");
