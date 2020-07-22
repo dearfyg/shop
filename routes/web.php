@@ -24,5 +24,5 @@ Route::get("/order/success","Index\OrderController@success"); //支付成功同�
 Route::get("/cart/add","Index\CartController@cart_add");//添加购物车
 Route::get("/cartlist","Index\CartController@cartlist");//购物车列表
 Route::get("/cart/gopay","Index\CartController@gopay");//购物车跳转;
-Route::get("cart/subtotal","Index\CartController@subtotal");//结算小计方法
-
+Route::get("/cart/subtotal","Index\CartController@subtotal");//结算小计方法
+Route::get("/cart/del","Index\CartController@del");//购物车删除商品

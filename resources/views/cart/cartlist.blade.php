@@ -9,14 +9,13 @@
 
             <div class="content" >
                 @foreach($cartInfo as $k=>$v)
-                <div class="cart-1">
+                <div class="cart-1" id="Dbox">
                     <div class="row">
-                        <input type="checkbox" class="box">
                         <div class="col s5">
                             <h5>Image</h5>
                         </div>
                         <div class="col s7">
-                            <img src="" alt="">
+                            <img src="{{env('APP_URL')}}{{'/storage/'.$v->goods_img}}" alt="">
                         </div>
                     </div>
                     <div class="row">
@@ -29,30 +28,39 @@
                     </div>
                     <div class="row">
                         <div class="col s5">
+                            <h5>Price</h5>
+                        </div>
+                        <div class="col s7">
+                            <h5>￥{{$v->goods_price}}</h5>
+                        </div>
+                    </div>
+                    <div class="row" id="aaa">
+                        <div class="col s5">
                             <h5>Quantity</h5>
                         </div>
                         <div class="col s7 goods"   user_id="{{$v->user_id}}" goods_id="{{$v->goods_id}}">
                             <input class="buy_num" value="{{$v->buy_num}}" type="text">
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row" id="bbb">
                         <div class="col s5">
-                            <h5>Price</h5>
+                            <h5>SubTotal</h5>
                         </div>
                         <div class="col s7" price="{{$v->goods_price}}">
-                            <h5 class="price">￥{{$v->goods_price}}</h5>
+                            <h5 class="price">￥{{$v->goods_price*$v->buy_num}}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s5">
                             <h5>Action</h5>
                         </div>
-                        <div class="col s7">
-                            <h5><i class="fa fa-trash"></i></h5>
+                        <div class="col s7" goods_id="{{$v->goods_id}}">
+                            <h5><i class="fa fa-trash del"></i></h5>
                         </div>
                     </div>
                 </div>
-                <div class="divider"></div>
+                <div class="divider" id="Dbox1"></div>
                 @endforeach
 
 
@@ -95,14 +103,30 @@
             $(".buy_num").blur(function(){
                 var buy_num=$(this).val()
                 var goods_id=$(this).parent().attr("goods_id")
+                var _this=$(this)
                 $.get(
                     "/cart/subtotal",
                     {buy_num:buy_num,goods_id:goods_id},
                     function(res){
-                        $(".price").text('￥'+res)
+                        _this.parents("#aaa").next().find(".price").text('￥'+res)
                         getTotal()
                     }
                 )
+            })
+            //删除商品
+            $(".del").click(function(){
+                var goods_id=$(this).parents("div").attr("goods_id")
+                if(window.confirm("是否删除该商品")){
+                    var _this=$(this)
+                    $.get(
+                        "/cart/del",
+                        {goods_id:goods_id},
+                        function(res){
+                            _this.parents("#Dbox").attr("style","display:none;")
+                            _this.parents("#Dbox").next("#Dbox1").attr("style","display:none;")
+                        }
+                    )
+                }
             })
         })
 

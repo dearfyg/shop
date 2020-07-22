@@ -8,6 +8,7 @@ use App\Model\Goods;
 use App\Model\Cart;
 class CartController extends Controller
 {
+    //购物车加入商品
     public function cart_add(){
         $id=request()->goods_id;
         $data=[
@@ -58,5 +59,12 @@ class CartController extends Controller
         $subtotal=$buy_num*$price;
         Cart::where("goods_id",$goods_id)->update(['buy_num'=>$buy_num]);
         return $subtotal;
+    }
+
+
+    //购物车删除商品
+    public function del(){
+        $goods_id=request()->goods_id;
+        $res=Cart::where("goods_id",$goods_id)->delete();
     }
 }
