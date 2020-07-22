@@ -9,9 +9,9 @@ use App\Model\Cart;
 class CartController extends Controller
 {
     public function cart_add(){
-        $goods_id=3;
+        $id=request()->goods_id;
         $data=[
-          'goods_id'=>$goods_id,
+          'goods_id'=>$id,
             "user_id"=>3,
             "buy_num"=>1,
             "add_time"=>time()

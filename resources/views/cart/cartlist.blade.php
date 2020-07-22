@@ -76,6 +76,7 @@
     <script>
         //进入页面获取总价
         $("document").ready(function(){
+            getTotal()
             function getTotal() {
                 var user_id = $(".goods").attr("user_id")
                 $.get(
