@@ -40,6 +40,9 @@ class GoodsController extends AdminController
         $grid->column('is_up', __('是否上架'))->display(function ($released) {
             return $released ? '是' : '否';
         });
+        $grid->column('is_hot', __('是否热卖'))->display(function ($released) {
+            return $released ? '是' : '否';
+        });
         $grid->column('category.cate_name', __('分类'));
         $grid->column('created_at', __('创建时间'));
         $grid->column('updated_at', __('修改时间'));
@@ -66,6 +69,7 @@ class GoodsController extends AdminController
         $show->field('goods_score', __('Goods score'));
         $show->field('is_new', __('Is new'));
         $show->field('is_up', __('Is up'));
+        $show->field('is_hot', __('Is hot'));
         $show->field('cate_id', __('Cate id'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -90,6 +94,7 @@ class GoodsController extends AdminController
         $form->number('goods_score', __('商品积分'));
         $form->radio('is_new', __('是否新品'))->options([0=>"否",1=>"是"]);
         $form->radio('is_up', __('是否上架'))->options([0=>"否",1=>"是"]);
+        $form->radio('is_hot', __('是否热卖'))->options([0=>"否",1=>"是"]);
         $form->select('cate_id', __('分类'))->options(Category::all()->pluck('cate_name','id'));
         return $form;
     }

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get("/index","Index\IndexController@index");     //首页
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
 Route::get("/order/order","Index\OrderController@order"); //提交订单页面
@@ -26,3 +26,5 @@ Route::get("/cartlist","Index\CartController@cartlist");//购物车列表
 Route::get("/cart/gopay","Index\CartController@gopay");//购物车跳转;
 Route::get("/cart/subtotal","Index\CartController@subtotal");//结算小计方法
 Route::get("/cart/del","Index\CartController@del");//购物车删除商品
+Route::get("cart/subtotal","Index\CartController@subtotal");//结算小计方法
+
