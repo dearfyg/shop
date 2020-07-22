@@ -97,7 +97,7 @@
             }
             //点击跳转支付
             $("#gopay").click(function(){
-                window.location.href="/order/order/1";
+                window.location.href="/order/order/";
             })
             //更改数量后重新获取
             $(".buy_num").blur(function(){
