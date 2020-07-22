@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="{{url('order/pay')}}" class="btn button-default button-fullwidth">去支付</a>
+                                    <a href="{{url('order/pay?goods_sum='.$sum)}}" class="btn button-default button-fullwidth">去支付</a>
                                 </div>
                             </div>
                         </li>

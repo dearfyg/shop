@@ -37,8 +37,8 @@ class OrderController extends Controller
         return view("order.order",["orderInfo"=>$orderInfo,"sum"=>$sum_price]);
     }
     //支付方法
-    public function pay($order_id){
-
+    public function pay(){
+        $sum = request()->goods_sum;
         require_once app_path("Packages/alipay/pagepay/service/AlipayTradeService.php");
         require_once app_path("Packages/alipay/pagepay/buildermodel/AlipayTradePagePayContentBuilder.php");
         $config = config("alipay");
@@ -49,7 +49,7 @@ class OrderController extends Controller
         $subject = trim("go团队测试");
 
         //付款金额，必填
-        $total_amount = rand(10,100);
+        $total_amount = $sum;
 
         //商品描述，可空
         $body = "";
