@@ -9,15 +9,23 @@ use App\Model\Cart;
 class CartController extends Controller
 {
     public function cart_add(){
-        $goods_id=3;
+        $id=request()->goods_id;
         $data=[
-          'goods_id'=>$goods_id,
+          'goods_id'=>$id,
             "user_id"=>3,
             "buy_num"=>1,
             "add_time"=>time()
         ];
-        Cart::insert($data);
+
+        $res=Cart::where("goods_id",$id)->first();
+        if($res){
+            $buy_num=Cart::where("goods_id",$id)->value("buy_num");
+            Cart::where("goods_id",$id)->update(['buy_num'=>$buy_num+1]);
+        }else{
+            Cart::insert($data);
+        }
         return redirect("/cartlist");
+
     }
     //商品购物车展示
     public function cartlist()
@@ -42,6 +50,13 @@ class CartController extends Controller
         }
         echo $money;
     }
-    //点击支付
-
+    //点击获取小计i
+    public function subtotal(){
+        $buy_num=request()->buy_num;
+        $goods_id=request()->goods_id;
+        $price=Goods::where("goods_id",$goods_id)->value("goods_price");
+        $subtotal=$buy_num*$price;
+        Cart::where("goods_id",$goods_id)->update(['buy_num'=>$buy_num]);
+        return $subtotal;
+    }
 }
