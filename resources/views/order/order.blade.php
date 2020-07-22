@@ -25,27 +25,54 @@
 <div class="checkout pages section">
     <div class="container">
         <div class="pages-head">
-            <h3>CHECKOUT</h3>
+            <h3>收银台</h3>
         </div>
         <div class="checkout-content">
             <div class="row">
                 <div class="col s12">
                     <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header"><h5>Order Review</h5></div>
+                        <li class="active">
+                            <div class="collapsible-header active"><h5>订单详情</h5></div>
                             <div class="collapsible-body">
+                                @foreach($orderInfo as $k=>$v)
                                 <div class="order-review">
                                     <div class="row">
                                         <div class="col s12">
+                                            <div class="divider"></div>
                                             <div class="cart-details">
                                                 <div class="col s5">
                                                     <div class="cart-product">
-                                                        <h5>Image</h5>
+                                                        <h5>商品名称</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col s7">
                                                     <div class="cart-product">
-                                                        <img src="/static/index/img/shop1.png" alt="">
+                                                        {{$v->goods_name}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divider"></div>
+                                                <div class="cart-details">
+                                                    <div class="col s5">
+                                                        <div class="cart-product">
+                                                            <h5>商品图片</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s7">
+                                                        <div class="cart-product">
+                                                            <img src="{{env("APP_URL")."/storage/".$v->goods_img}}" width="80">
+                                                        </div>
+                                                    </div>
+                                            <div class="divider"></div>
+                                            <div class="cart-details">
+                                                <div class="col s5">
+                                                    <div class="cart-product">
+                                                        <h5>购买数量</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col s7">
+                                                    <div class="cart-product">
+                                                        {{$v->buy_num}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,98 +80,50 @@
                                             <div class="cart-details">
                                                 <div class="col s5">
                                                     <div class="cart-product">
-                                                        <h5>Name</h5>
+                                                        <h5>商品单价</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col s7">
                                                     <div class="cart-product">
-                                                        <a href="">Jackets Men's</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="divider"></div>
-                                            <div class="cart-details">
-                                                <div class="col s5">
-                                                    <div class="cart-product">
-                                                        <h5>Quantity</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col s7">
-                                                    <div class="cart-product">
-                                                        <input type="text" value="1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="divider"></div>
-                                            <div class="cart-details">
-                                                <div class="col s5">
-                                                    <div class="cart-product">
-                                                        <h5>Unit Price</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col s7">
-                                                    <div class="cart-product">
-                                                        <span>$26.00</span>
+                                                        <span>${{$v->goods_price}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="cart-details">
                                                 <div class="col s5">
                                                     <div class="cart-product">
-                                                        <h5>Total Price</h5>
+                                                        <h5>总价</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col s7">
                                                     <div class="cart-product">
-                                                        <span>$26.00</span>
+                                                        <span>${{$v->goods_price*$v->buy_num}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                    <hr/>
+                                @endforeach
                                 <div class="order-review final-price">
                                     <div class="row">
                                         <div class="col s12">
                                             <div class="cart-details">
                                                 <div class="col s8">
                                                     <div class="cart-product">
-                                                        <h5>Sub Total</h5>
+                                                        <h5>合计</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col s4">
                                                     <div class="cart-product">
-                                                        <span>$26.00</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cart-details">
-                                                <div class="col s8">
-                                                    <div class="cart-product">
-                                                        <h5>Flat Shipping Rate:</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col s4">
-                                                    <div class="cart-product">
-                                                        <span>$5.00</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="cart-details">
-                                                <div class="col s8">
-                                                    <div class="cart-product">
-                                                        <h5>Total</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="col s4">
-                                                    <div class="cart-product">
-                                                        <span>$31.00</span>
+                                                        <span>${{$sum}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="{{url('order/pay/1')}}" class="btn button-default button-fullwidth">CONTINUE</a>
+                                    <a href="{{url('order/pay')}}" class="btn button-default button-fullwidth">去支付</a>
                                 </div>
                             </div>
                         </li>

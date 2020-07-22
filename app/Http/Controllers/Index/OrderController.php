@@ -5,12 +5,36 @@ namespace App\Http\Controllers\Index;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use App\Model\Cart;
 class OrderController extends Controller
 {
     //订单列表
-    public function order($order_id){
-        return view("order.order");
+    public function order(){
+        //获取当前登录的用户
+        //$user_id = session();
+        //接商品id
+        //$goods_id = request()->$goods_id;
+        ///////模拟数据//////
+        $user_id = 3;
+        $goods_id = "1,2,3,4";
+        //字符串转为数组
+        $goods_id = explode(",",$goods_id);
+        $where = [
+            "user_id"=>$user_id,
+            "is_del"=>1,
+        ];
+        $orderInfo = Cart::select("admin_cart.buy_num","admin_goods.*")
+                           ->leftJoin("admin_goods","admin_cart.goods_id","=","admin_goods.goods_id")
+                           ->where($where)
+                           ->whereIn("admin_cart.goods_id",$goods_id)
+                           ->get();
+        //总价
+        $sum_price = 0;
+        //计算总价
+        foreach($orderInfo as $k=>$v){
+            $sum_price+= $v["buy_num"]*$v["goods_price"];
+        }
+        return view("order.order",["orderInfo"=>$orderInfo,"sum"=>$sum_price]);
     }
     //支付方法
     public function pay($order_id){
