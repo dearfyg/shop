@@ -6,8 +6,9 @@
                 <h3>CART</h3>
             </div>
 
-            @foreach($cartInfo as $k=>$v)
+
             <div class="content" >
+                @foreach($cartInfo as $k=>$v)
                 <div class="cart-1">
                     <div class="row">
                         <input type="checkbox" class="box">
