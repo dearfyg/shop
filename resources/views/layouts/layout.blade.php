@@ -18,6 +18,12 @@
     <link rel="stylesheet" href="/static/index/css/animate.css">
     <link rel="stylesheet" href="/static/index/css/style.css">
     <link rel="shortcut icon" href="/static/index/img/favicon.png">
+    <script src="/static/index/js/jquery.min.js"></script>
+    <script src="/static/index/js/materialize.min.js"></script>
+    <script src="/static/index/js/owl.carousel.min.js"></script>
+    <script src="/static/index/js/fakeLoader.min.js"></script>
+    <script src="/static/index/js/animatedModal.min.js"></script>
+    <script src="/static/index/js/main.js"></script>
 </head>
 <body>
 {{--头部--}}
@@ -29,11 +35,6 @@
 {{--足部引用--}}
 @include("layouts.foot")
 <!-- scripts -->
-<script src="/static/index/js/jquery.min.js"></script>
-<script src="/static/index/js/materialize.min.js"></script>
-<script src="/static/index/js/owl.carousel.min.js"></script>
-<script src="/static/index/js/fakeLoader.min.js"></script>
-<script src="/static/index/js/animatedModal.min.js"></script>
-<script src="/static/index/js/main.js"></script>
+
 </body>
 </html>
