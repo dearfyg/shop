@@ -1155,7 +1155,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .cart .content img {
-	width: 100%;
+	width: 60%;
 	height: 100%;
 }
 
