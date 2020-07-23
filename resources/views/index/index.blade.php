@@ -175,4 +175,4 @@
 <!-- end footer -->
 
 <!-- scripts -->
-@endsecton
+@endsection
