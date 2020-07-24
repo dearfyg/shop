@@ -80,7 +80,6 @@
             <button class="btn button-default" id="gopay">Process to Checkout</button>
         </div>
     </div>
-    <script src="/static/index/js/jquery.min.js"></script>
     <script>
         //进入页面获取总价
         $("document").ready(function(){
