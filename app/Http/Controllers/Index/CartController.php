@@ -60,8 +60,6 @@ class CartController extends Controller
         Cart::where("goods_id",$goods_id)->update(['buy_num'=>$buy_num]);
         return $subtotal;
     }
-
-
     //购物车删除商品
     public function del(){
         $goods_id=request()->goods_id;

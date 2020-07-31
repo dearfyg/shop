@@ -87,7 +87,7 @@ class OrderController extends Controller
             $payRequestBuilder->setOutTradeNo($out_trade_no);
 
             $aop = new \AlipayTradeService($config);
-
+//            $aop = new \AopClient($config);
             /**
              * pagePay 电脑网站支付请求
              * @param $builder 业务参数，使用buildmodel中的对象生成。
@@ -96,14 +96,24 @@ class OrderController extends Controller
              * @return $response 支付宝返回的信息
              */
             $response = $aop->pagePay($payRequestBuilder,$config['return_url'],$config['notify_url']);
-
             //输出表单
             var_dump($response);
         }
     }
     //同步跳转
     public function success(){
-        return view("order.success");
+        $config = config('alipay');
+        require_once app_path("Packages/alipay/pagepay/service/AlipayTradeService.php");
+        $arr = $_GET;
+        $alipaySevice = new \AlipayTradeService($config);
+        $ischeck = $alipaySevice->check($arr);
+        if($ischeck){
+            return view("order.success");
+        }else{
+            echo "fail";
+        }
+
     }
+    //异步跳转
 
 }

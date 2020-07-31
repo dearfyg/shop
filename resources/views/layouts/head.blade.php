@@ -2,7 +2,11 @@
 <div class="navbar-top">
     <!-- site brand	 -->
     <div class="site-brand">
-        <a href="index.html"><h1>Mstore</h1></a>
+        <a href="{{url('/')}})"><h1>Mstore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></a>
+    </div>
+
+    <div class="site-brand">
+        <a href="{{url('sign')}}"><h1>签到</h1></a>
     </div>
     <!-- end site brand	 -->
     <div class="side-nav-panel-right">

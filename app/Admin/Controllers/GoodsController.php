@@ -8,7 +8,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-
+use App\Admin\Actions\Post\Video;
 class GoodsController extends AdminController
 {
     /**
@@ -46,7 +46,9 @@ class GoodsController extends AdminController
         $grid->column('category.cate_name', __('分类'));
         $grid->column('created_at', __('创建时间'));
         $grid->column('updated_at', __('修改时间'));
-
+        $grid->actions(function ($actions) {
+            $actions->add(new Video);
+        });
         return $grid;
     }
 
@@ -56,6 +58,7 @@ class GoodsController extends AdminController
      * @param mixed $id
      * @return Show
      */
+
     protected function detail($id)
     {
         $show = new Show(Goods::findOrFail($id));

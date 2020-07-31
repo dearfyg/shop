@@ -115,6 +115,7 @@
                         ${{$n->goods_price}}
                     </div>
                     <a class="btn button-default" href="{{url('/cart/add?goods_id=').$n->goods_id}}">ADD TO CART</a>
+                    <a class="btn button-default" href="{{url('/goods/rob?goods_id=').$n->goods_id}}">抢购</a>
                 </div>
             </div>
             @endforeach

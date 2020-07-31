@@ -1,6 +1,15 @@
 @extends("layouts.layout")
 @section('title', '产品详情')
 @section('content')
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="IE=edge" >
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+        <title>Aliplayer Online Settings</title>
+        <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.8/skins/default/aliplayer-min.css" />
+        <script type="text/javascript" charset="utf-8" src="https://g.alicdn.com/de/prismplayer/2.8.8/aliplayer-min.js"></script>
+    </head>
 <!-- navbar top -->
 
 <!-- end navbar top -->
@@ -25,12 +34,32 @@
 <div class="pages section">
     <div class="container">
         <div class="shop-single">
-            <img src="{{env("APP_URL")}}{{"/storage/".$data->goods_img}}" alt="">
-            <h5>{{$data->goods_name}}</h5>
-            <div class="price">${{$data->goods_price}} <p>积分:<span>{{$data->goods_score}}</span></p></div>
-            <p>{{$data->goods_desc}}</p>
-            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data->goods_id}}">加入购物车</a>
+            <img src="{{env("APP_URL")}}{{"/storage/public/".$data["goods_img"]}}" alt="">
+            <h5>{{$data["goods_name"]}}</h5>
+            <div class="price">${{$data["goods_price"]}} <p>积分:<span>{{$data["goods_score"]}}</span></p></div>
+            <p>{{$data["goods_desc"]}}</p>
+            <h2> 该商品浏览量为<font color="red" size="18">{{$sum}}</font></h2>
+            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data["goods_id"]}}">加入购物车</a>
         </div>
+        <div class="prism-player" id="player-con"></div>
+        <script>
+            var player = new Aliplayer({
+                    "id": "player-con",
+                    "source": "{{$video["video_m3u8"]}}",
+                    "width": "20%",
+                    "height": "300px",
+                    "autoplay": true,
+                    "isLive": false,
+                    "rePlay": false,
+                    "playsinline": true,
+                    "preload": true,
+                    "controlBarVisibility": "hover",
+                    "useH5Prism": true
+                }, function (player) {
+                    console.log("The player is created");
+                }
+            );
+        </script>
         <div class="review">
             <h5>1 reviews</h5>
             <div class="review-details">
