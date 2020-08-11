@@ -30,7 +30,6 @@ class GoodsController extends Controller
         }
         //判断redis是否有此id 有则存直接获取没有去数据库查询
         if(count($data,COUNT_RECURSIVE)<=4){
-            echo "没缓冲";
             //俩表联查
             $data=Goods::select("admin_goods.*","Category.id","Category.cate_name")
                 ->leftJoin("Category","admin_goods.cate_id","=","Category.id")
@@ -44,13 +43,12 @@ class GoodsController extends Controller
         }
         //获取分数从大到小
         $sort = Redis::zrevrange("ss:goods",0,9,['withscores']==true);
+        $rr = [];
         foreach($sort as $k=>$v){
             $r= Goods::select("goods_name")->where("goods_id",$k)->first()->toArray();
             $r["score"] = $v;
             $rr[] = $r;
         }
-
-
         return view("goods.list",["data"=>$data,"link"=>$goods_id,"rr"=>$rr]);
     }
     /*
@@ -74,7 +72,6 @@ class GoodsController extends Controller
         //判断是否有这个键
         if (!$data) {
             //没有缓存
-            echo "没有缓存";
             //没有则存入redis
             //查询数据
             $data = Goods::where("goods_id", $id)
@@ -83,7 +80,7 @@ class GoodsController extends Controller
             //存入redis
             Redis::hmset($id . "goods", $data);
             //设置redis缓存过期时间
-            Redis::expire($id . "goods", 120);
+            Redis::expire($id . "goods", 300);
         }
         //通过goods id查询商品视频表
         $video = Video::where("goods_id", $id)->first("video_m3u8");
