@@ -15,7 +15,7 @@ class IndexController extends Controller
         $cache = 10;
         //判断如果文件存在 或者 当前时间减创建时间小于过期时间则
         if(file_exists($fileName) && time()-filemtime($fileName)<$cache){
-            echo "有缓存";echo "<br>";
+//            echo "有缓存";echo "<br>";
             $content = file_get_contents($fileName);
             echo $content;
             die;
@@ -49,5 +49,6 @@ class IndexController extends Controller
         //将list作为key存入redis为当前用户
         $sign = Redis::lpush("list",$user_id);
         //已经签到
+
     }
 }
