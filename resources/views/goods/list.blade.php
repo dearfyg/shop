@@ -39,7 +39,7 @@
             </select>
         </div>
         <div class="row">
-            @foreach($data['data'] as$k=> $v)
+            @foreach($data['data'] as $k=>$v)
             <div class="col s6">
                 <div class="content">
                     <img src="{{env("APP_URL")}}{{"/storage/".$v['goods_img']}}" alt="">

@@ -15,7 +15,7 @@
                             <h5>Image</h5>
                         </div>
                         <div class="col s7">
-                            <img src="{{env('APP_URL')}}{{'/storage/'.$v->goods_img}}" alt="">
+                            <img src="" alt="">
                         </div>
                     </div>
                     <div class="row">
@@ -23,7 +23,7 @@
                             <h5>Name</h5>
                         </div>
                         <div class="col s7">
-                            <h5><a href="">{{$v->goods_name}}</a></h5>
+                            <h5><a href="">{{$v['goods_name']}}</a></h5>
                         </div>
                     </div>
                     <div class="row">
@@ -31,15 +31,15 @@
                             <h5>Price</h5>
                         </div>
                         <div class="col s7">
-                            <h5>￥{{$v->goods_price}}</h5>
+                            <h5>￥{{$v['goods_price']}}</h5>
                         </div>
                     </div>
                     <div class="row" id="aaa">
                         <div class="col s5">
                             <h5>Quantity</h5>
                         </div>
-                        <div class="col s7 goods"   user_id="{{$v->user_id}}" goods_id="{{$v->goods_id}}">
-                            <input class="buy_num" value="{{$v->buy_num}}" type="text">
+                        <div class="col s7 goods"  price="{{$v['goods_price']}}"  goods_id="{{$v['goods_id']}}">
+                            <input class="buy_num"  value="{{$v['num']}}" type="text">
                         </div>
                     </div>
 
@@ -47,15 +47,15 @@
                         <div class="col s5">
                             <h5>SubTotal</h5>
                         </div>
-                        <div class="col s7" price="{{$v->goods_price}}">
-                            <h5 class="price">￥{{$v->goods_price*$v->buy_num}}</h5>
+                        <div class="col s7" >
+                            <h5 class="price">￥{{$v['goods_price']*$v['num']}}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s5">
                             <h5>Action</h5>
                         </div>
-                        <div class="col s7" goods_id="{{$v->goods_id}}">
+                        <div class="col s7" goods_id="{{$v['goods_id']}}">
                             <h5><i class="fa fa-trash del"></i></h5>
                         </div>
                     </div>
@@ -91,6 +91,7 @@
                     {user_id: user_id},
                     function (res) {
                         $("#total").text('￥' + res)
+//                    alert(res)
                     }
                 )
             }
@@ -103,10 +104,11 @@
             $(".buy_num").blur(function(){
                 var buy_num=$(this).val()
                 var goods_id=$(this).parent().attr("goods_id")
+                var price=$(this).parent().attr("price")
                 var _this=$(this)
                 $.get(
                     "/cart/subtotal",
-                    {buy_num:buy_num,goods_id:goods_id},
+                    {price:price,buy_num:buy_num,goods_id:goods_id},
                     function(res){
                         _this.parents("#aaa").next().find(".price").text('￥'+res)
                         getTotal()

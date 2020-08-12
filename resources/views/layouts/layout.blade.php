@@ -33,10 +33,10 @@
 @include("layouts.head")
 {{--指定区块--}}
 @yield("content")
-{{--浮动--}}
-@include("layouts.navbar")
 {{--足部引用--}}
 @include("layouts.foot")
+{{--浮动--}}
+@include("layouts.navbar")
 <!-- scripts -->
 
 </body>
