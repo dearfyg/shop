@@ -2,6 +2,7 @@
 <html lang="zxx">
 <head>
     <meta charset="UTF-8">
+
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,6 +19,8 @@
     <link rel="stylesheet" href="/static/index/css/animate.css">
     <link rel="stylesheet" href="/static/index/css/style.css">
     <link rel="shortcut icon" href="/static/index/img/favicon.png">
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />
+    <script charset="utf-8" type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-min.js"></script>
     <script src="/static/index/js/jquery.min.js"></script>
     <script src="/static/index/js/materialize.min.js"></script>
     <script src="/static/index/js/owl.carousel.min.js"></script>

@@ -22,15 +22,49 @@
 <!-- end cart menu -->
 
 <!-- shop single -->
+
+
 <div class="pages section">
     <div class="container">
         <div class="shop-single">
-            <img src="{{env("APP_URL")}}{{"/storage/".$data->goods_img}}" alt="">
-            <h5>{{$data->goods_name}}</h5>
-            <div class="price">${{$data->goods_price}} <p>积分:<span>{{$data->goods_score}}</span></p></div>
-            <p>{{$data->goods_desc}}</p>
-            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data->goods_id}}">加入购物车</a>
+            <img src="{{env("APP_URL")}}{{"/storage/".$data['goods_img']}}" alt="">
+            <h5>{{$data['goods_name']}}</h5>
+            <div class="price">${{$data['goods_price']}} <p>积分:<span>{{$data['goods_score']}}</span></p></div>
+            <p>{{$data['goods_desc']}}</p>
+            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data['goods_id']}}">加入购物车</a>
+            <a class="btn button-default" href="{{'/goods/add?goods_id='.$data['goods_id']}}">立即购买</a>
+
         </div>
+        <div  class="prism-player" id="J_prismPlayer"></div>
+        <script>
+            var player = new Aliplayer({
+                id: 'J_prismPlayer',
+                width: '30%',
+                autoplay: true,
+                //支持播放地址播放,此播放优先级最高
+                source : "{{env('APP_URL')}}{{"storage/".$video->m3u8}}",
+                //播放方式二：点播用户推荐
+                vid : '1e067a2831b641db90d570b6480fbc40',
+                playauth : 'ddd',
+                cover: 'http://liveroom-img.oss-cn-qingdao.aliyuncs.com/logo.png',
+                encryptType:1, //当播放私有加密流时需要设置。
+                //播放方式三：仅MPS用户使用
+                vid : '1e067a2831b641db90d570b6480fbc40',
+                accId: 'dd',
+                accSecret: 'dd',
+                stsToken: 'dd',
+                domainRegion: 'dd',
+                authInfo: 'dd',
+                //播放方式四：使用STS方式播放
+                vid : '1e067a2831b641db90d570b6480fbc40',
+                accessKeyId: 'dd',
+                securityToken: 'dd',
+                accessKeySecret: 'dd',
+                region:'cn-shanghai',//eu-central-1,ap-southeast-1
+            },function(player){
+                console.log('播放器创建好了。')
+            });
+        </script>
         <div class="review">
             <h5>1 reviews</h5>
             <div class="review-details">

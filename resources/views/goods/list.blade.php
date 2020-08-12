@@ -39,16 +39,17 @@
             </select>
         </div>
         <div class="row">
-            @foreach($data as $v)
+            @foreach($data['data'] as$k=> $v)
             <div class="col s6">
                 <div class="content">
-                    <img src="{{env("APP_URL")}}{{"/storage/".$v->goods_img}}" alt="">
-                    <h6><a href="{{'/goods/detail?goods_id='.$v->goods_id}}">{{$v->goods_name}}</a></h6>
+                    <img src="{{env("APP_URL")}}{{"/storage/".$v['goods_img']}}" alt="">
+                    <h6><a href="{{'/goods/detail?goods_id='.$v['goods_id']}}">{{$v['goods_name']}}</a></h6>
                     <div class="price">
-                        {{$v->goods_price}}
-                        <p>积分:<span>{{$v->goods_score}}</span></p>
+                        {{$v['goods_price']}}
+                        <p>积分:<span>{{$v['goods_score']}}</span></p>
                     </div>
-                    <a class="btn button-default" href="{{'/cart/add?goods_id='.$v->goods_id}}">加入购物车</a>
+                    <a class="btn button-default" href="{{'/cart/add?goods_id='.$v['goods_id']}}">加入购物车</a>
+
                 </div>
             </div>
             @endforeach
@@ -56,7 +57,6 @@
 
         <div class="pagination-product">
             <ul>
-                {{$data->links()}}
                 {{--<li class="active">1</li>--}}
                 {{--<li><a href="">2</a></li>--}}
                 {{--<li><a href="">3</a></li>--}}

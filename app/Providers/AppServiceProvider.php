@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View()->composer('navbar.header',function ($view){ //common.header 对应Blade模板
+        $view->with('key', 'value');
+    });
     }
 }

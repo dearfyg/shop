@@ -14,4 +14,7 @@ class IndexController extends Controller
         $hot=Goods::select("goods_id","goods_img","goods_name","goods_price")->where("is_hot",1)->orderBy("goods_id","desc")->paginate(4);
         return view("index.index",["img"=>$img,"new"=>$new,"hot"=>$hot]);
     }
+    public function duty(){
+
+    }
 }
