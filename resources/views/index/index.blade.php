@@ -109,7 +109,7 @@
             @foreach($new as $n)
             <div class="col s6">
                 <div class="content">
-                    <img src="{{env("APP_URL")}}{{"/storage/public/".$n["goods_img"]}}" height = "30px" width="50px">
+                    <img src="{{env("APP_URL")}}{{"/storage/".$n["goods_img"]}}" height = "30px" width="50px">
                     <h6><a href="{{url('/goods/detail?goods_id=').$n->goods_id}}">{{$n->goods_name}}</a></h6>
                     <div class="price">
                         ${{$n->goods_price}}
