@@ -16,8 +16,9 @@
                     <div class="input-field">
                         <input type="password" class="validate" placeholder="PASSWORD" required>
                     </div>
-                    <a href=""><h6>Forgot Password ?</h6></a>
-                    <a href="" class="btn button-default">LOGIN</a>
+                        <a href=""><h6>Forgot Password ?</h6></a>
+                        <a href="{{url('/register')}}"><h6>Register</h6></a>
+                        <a href="" class="btn button-default">LOGIN</a>
                 </form>
             </div>
         </div>

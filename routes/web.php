@@ -15,6 +15,14 @@
 //    return view('welcome');
 //});
 
+Route::get("/loginDo","Index\LoginController@loginDo");//登录方法
+
+Route::get("/register","Index\LoginController@register");//注册
+Route::get("/reg","Index\LoginController@reg");
+Route::post("/reg/gain","Index\LoginController@gain");   //获取验证码
+Route::post("/reg/code","Index\LoginController@code");   //验证验证码
+Route::post("/reg/name","Index\LoginController@name");   //验证用户名
+
 Route::get("/index","Index\IndexController@index");     //首页
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
@@ -33,4 +41,3 @@ Route::get("goods/rob","Index\GoodsController@rob");//抢购
 Route::get("sign","Index\IndexController@sign");//签到
 Route::get("decode","Cron\VideoController@decoder");//解码
 Route::get("/","Index\LoginController@login");//登录
-Route::get("/loginDo","Index\LoginController@loginDo");//登录方法
