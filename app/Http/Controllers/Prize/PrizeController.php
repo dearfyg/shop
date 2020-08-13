@@ -15,14 +15,17 @@ class PrizeController extends Controller
      ***/
     public function prize(){
         //中奖用户倒叙
-        $info = Userprize::orderby("id","desc")->take(10)->get();
+        $info = Userprize::select("user.*")
+            ->leftjoin('user','user_prize.user_id','=','user.user_id')
+            ->orderby("id","desc")
+            ->take(10)
+            ->get();
         //奖品信息
         $prize = Prize::all();
         return view("prize.index",["prize"=>$prize,"info"=>$info]);
     }
     /**抽奖规则***/
     public function prizeDo(){
-        session(["user_id"=>1]);
         //查询用户抽奖机会
         $prize = User::select("prize")->first("user_id",session("user_id"));
 
@@ -37,11 +40,15 @@ class PrizeController extends Controller
             //充足更新抽奖次数
             $count = $prize->prize - 1;
 
-            User::where("id",session("user_id"))->update(["prize"=>$count]);
+            User::where("user_id",session("user_id"))->update(["prize"=>$count]);
         }
         $count = rand(1,1000);
-        $one = 1000 * 0.001;//一等奖中奖
-        $two = 1000 * 100;           ;//二等奖中奖几率
+        //获取一等奖中奖的概率
+        $a = Prize::where("prize_level",1)->value("prize_rand");
+        $one = 1000 * $a;//一等奖中奖
+        //获取二等奖中奖的概率
+        $b = Prize::where("prize_level",2)->value("prize_rand");
+        $two = 1000 * $b;           ;//二等奖中奖几率
        //判断落在一等奖范围内
         if($count >= 1 && $count<= $one){
             $num = Prize::select("prize_num")->where("prize_level",1)->first();
