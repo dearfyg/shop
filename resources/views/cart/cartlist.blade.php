@@ -144,6 +144,7 @@
                             _this.parents("#Dbox").attr("style","display:none;")
                             _this.parents("#Dbox").next("#Dbox1").attr("style","display:none;")
                             getTotal()
+                            window.location.reload()
                         }
                     )
                 }

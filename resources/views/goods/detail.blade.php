@@ -78,12 +78,14 @@
                     <div class="col s3">
                         <img src="/static/index/img/user-comment.jpg" alt="" class="responsive-img">
                     </div>
+                    @foreach($reviews as $v)
                     <div class="col s9">
                         <div class="review-title">
-                            <span><strong>John Doe</strong> | Juni 5, 2016 at 9:24 am | <a href="">Reply</a></span>
+                            <span><strong>{{$v->goods_id}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v->reviews_time)}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Reply</a></span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis accusantium corrupti asperiores et praesentium dolore.</p>
+                        <p>{{$v->content}}</p>
                     </div>
+                        @endforeach
                 </div>
             </div>
         </div>
@@ -93,21 +95,12 @@
                 <p>Lorem ipsum dolor sit amet consectetur*</p>
             </div>
             <div class="row">
-                <form class="col s12 form-details">
-                    <div class="input-field">
-                        <input type="text" required class="validate" placeholder="NAME">
-                    </div>
-                    <div class="input-field">
-                        <input type="email" class="validate" placeholder="EMAIL" required>
-                    </div>
-                    <div class="input-field">
-                        <input type="text" class="validate" placeholder="SUBJECT" required>
-                    </div>
+                <form  method="post" class="col s12 form-details">
                     <div class="input-field">
                         <textarea name="textarea-message" id="textarea1" cols="30" rows="10" class="materialize-textarea" class="validate" placeholder="YOUR REVIEW"></textarea>
                     </div>
                     <div class="form-button">
-                        <div class="btn button-default">POST REVIEW</div>
+                        <div class="btn button-default" goods_id="{{$data['goods_id']}}" id="reviews">POST REVIEW</div>
                     </div>
                 </form>
             </div>
@@ -126,4 +119,25 @@
 
 <!-- scripts -->
 <script src="/static/index/js/cart.js"></script>
+    <script>
+        $("#reviews").click(function(){
+            var content =$("#textarea1").val();
+            var goods_id= $(this).attr("goods_id");
+            if(content==''){
+                alert("评论不能为空")
+            }
+            $.post(
+                "/goods/reviews",
+                {content:content,goods_id:goods_id},
+                function(res){
+                    if(res.code==000000){
+                        alert(res.msg);
+                    }else{
+                        alert(res.msg);
+                    }
+                    window.location.reload()
+                }
+            )
+        })
+    </script>
 @endsection

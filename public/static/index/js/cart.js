@@ -11,4 +11,3 @@ $(".gocart").click(function() {
         }
     )
 })
-

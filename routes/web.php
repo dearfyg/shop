@@ -42,6 +42,7 @@ Route::get("/cart/del","Index\CartController@del");//购物车删除商品
 Route::get("cart/subtotal","Index\CartController@subtotal");//结算小计方法
 Route::get("/blog/list","Index\BlogController@list");       //博客列表
 Route::get("/blog/detail","Index\BlogController@detail");       //博客详情
+Route::post("/goods/reviews","Index\GoodsController@reviews");//评论
 
 Route::get("goods/rob","Index\GoodsController@rob");//抢购
 Route::get("sign","Index\IndexController@sign");//签到
