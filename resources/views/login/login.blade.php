@@ -1,3 +1,4 @@
+
 @extends("layouts.layout")
 @section("title","登录页面")
 @section("content")
@@ -30,3 +31,4 @@
 <div id="fakeLoader"></div>
 <!-- end loader -->
 @endsection
+

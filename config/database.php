@@ -123,7 +123,11 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
+
             'prefix' => "",
+
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'test'), '_').'_list'),
+
         ],
 
         'default' => [

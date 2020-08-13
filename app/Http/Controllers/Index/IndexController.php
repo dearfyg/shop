@@ -57,4 +57,7 @@ class IndexController extends Controller
     public function center(){
         return view("index.center");
     }
+    public function duty(){
+
+    }
 }

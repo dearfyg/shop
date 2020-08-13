@@ -53,23 +53,27 @@
         </div>
         <div class="row">
             @foreach($data as $v)
-            <div class="col s6">
-                <div class="content">
-                    <img src="{{env("APP_URL")}}{{"/storage/public/".$v["goods_img"]}}" alt="">
-                    <h6><a href="{{'/goods/detail?goods_id='.$v["goods_id"]}}">{{$v["goods_name"]}}</a></h6>
-                    <div class="price">
-                        {{$v["goods_price"]}}
-                        <p>积分:<span>{{$v["goods_score"]}}</span></p>
+                <div class="col s6">
+                    <div class="content">
+                        <img src="{{env("APP_URL")}}{{"/storage/public/".$v["goods_img"]}}" alt="">
+                        <h6><a href="{{'/goods/detail?goods_id='.$v["goods_id"]}}">{{$v["goods_name"]}}</a></h6>
+                        <div class="price">
+                            {{$v["goods_price"]}}
+                            <p>积分:<span>{{$v["goods_score"]}}</span></p>
+                        </div>
+                        <a class="btn button-default gocart"  goods_id="{{$v['goods_id']}}" href="javascript:;">加入购物车</a>
+
                     </div>
-                    <a class="btn button-default" href="{{'/cart/add?goods_id='.$v["goods_id"]}}">加入购物车</a>
                 </div>
-            </div>
             @endforeach
+
         </div>
 
         <div class="pagination-product">
             <ul>
+
                 {{$link->links()}}
+
                 {{--<li class="active">1</li>--}}
                 {{--<li><a href="">2</a></li>--}}
                 {{--<li><a href="">3</a></li>--}}
@@ -92,4 +96,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
+<script src="/static/index/js/cart.js"></script>
 @endsection

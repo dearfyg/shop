@@ -17,8 +17,7 @@ Route::group([
     $router->resource('cate', CategoryController::class);
 
     $router->resource('/order', OrderController::class);
+
     $router->resource('videos', VideoController::class);
-
-
 
 });

@@ -1,18 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Index;
-
 use App\Http\Controllers\Controller;
 use App\Model\Goods;
+use App\Model\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
-use App\Model\Video;
+
+
+
 class GoodsController extends Controller
 {
     /*
      * 产品列表
      */
     public function list(){
+
         //获取页数
         $page = request()->page;
         //如果没有页数则为第一页
@@ -54,6 +57,7 @@ class GoodsController extends Controller
     /*
      * 产品详情
      */
+
     public function detail()
     {
         //接产品id
@@ -89,20 +93,22 @@ class GoodsController extends Controller
     /*
     *抢购
     */
-    public function rob(){
+    public function rob()
+    {
         //接商品id值
         $goods_id = request()->goods_id;
         //当前商品id为key去查询数据库
-        $stock = Redis::hget("goods",$goods_id);
+        $stock = Redis::hget("goods", $goods_id);
         //每次进入先判断key值是否大于零
-        if($stock>0){
+        if ($stock > 0) {
             //如果大于零 减去购买的数量
-            $a = Redis::hincrby("goods",$goods_id,-1);
+            $a = Redis::hincrby("goods", $goods_id, -1);
             //跳转到购物车页面
-            return redirect("cart/add?goods_id=".$goods_id);
-        }else{
+            return redirect("cart/add?goods_id=" . $goods_id);
+        } else {
             //如果小于零提示商品库存不足
-            return  "库存不足";
+            return "库存不足";
         }
     }
+
 }
