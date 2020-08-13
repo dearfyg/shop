@@ -16,10 +16,11 @@
 //});
 
 
-Route::get("/loginDo","Index\LoginController@loginDo");//登录方法
+Route::get("/login","Index\LoginController@login");//登录方法
+Route::get("/loginDo","Index\LoginController@loginDo");
 
 Route::get("/register","Index\LoginController@register");//注册
-Route::get("/reg","Index\LoginController@reg");
+Route::post("/reg","Index\LoginController@reg");
 Route::post("/reg/gain","Index\LoginController@gain");   //获取验证码
 Route::post("/reg/code","Index\LoginController@code");   //验证验证码
 Route::post("/reg/name","Index\LoginController@name");   //验证用户名

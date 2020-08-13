@@ -10,33 +10,38 @@
             </div>
             <div class="register">
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" action="{{url('/reg')}}" method="post">
+                        @csrf
                         <div class="input-field">
-                            <input type="text" id="name" class="validate" placeholder="NAME" required>
-                            <span></span>
+                            <input type="text" id="name" name="user_name" class="validate" placeholder="NAME" required>
+                            <span style="color:red">{{$errors->first('user_name')}}</span>
                         </div>
                         <div class="input-field">
-                            <input type="email" id="email" placeholder="EMAIL" class="validate" required>
-                            <span></span>
+                            <input type="email" id="email" name="user_email" placeholder="EMAIL" class="validate" required>
+                            <span style="color:red">{{$errors->first('user_email')}}</span>
                         </div>
                         <div class="input-field">
-                            <input type="password" id="pwd" placeholder="PASSWORD" class="validate" required>
-                            <span></span>
+                            <input type="password" id="pwd" name="user_pwd" placeholder="PASSWORD" class="validate" required>
+                            <span style="color:red">{{$errors->first('user_pwd')}}</span>
                         </div>
                         <div class="input-field">
-                            <input type="password" id="password" placeholder="CONFIRM PASSWORD" class="validate" required>
-                            <span></span>
+                            <input type="password" id="password" name="password" placeholder="CONFIRM PASSWORD" class="validate" required>
+                            <span style="color:red">{{$errors->first('password')}}</span>
                         </div>
                         <div class="input-field">
-                            <input type="text" id="phone" placeholder="CELL-PHONE NUMBER" class="validate" required>
+                            <input type="text" id="phone" name="user_phone" placeholder="CELL-PHONE NUMBER" class="validate" required>
                             <button class="btn button-default gain" id="gain">GET CODE</button>
                             <span id="phoneSpan"></span>
+                            <span  style="color:red">{{$errors->first('user_phone')}}</span>
                         </div>
                         <div class="input-field">
-                            <input type="text" placeholder="AUTH CODE" class="validate" required>
+                            <input type="text" id="code" name="code" placeholder="AUTH CODE" class="validate" required>
+                            <span style="color:red">
+                                {{$errors->first('code')}}
+                            </span>
                         </div>
                         <center>
-                            <div class="btn button-default">REGISTER</div>
+                            <input class="btn button-default" type="submit" id="sub" value="REGISTER">
                         </center>
                     </form>
                 </div>
@@ -50,7 +55,7 @@
     <div id="fakeLoader"></div>
     <!-- end loader -->
     <script>
-        var flag=false
+        var flag=1
         //发送验证码
         $("#gain").click(function () {
             var phone=$("#phone").val();
@@ -97,18 +102,50 @@
                 $("button").removeAttr("disabled");
             }
         }
+        //验证验证码
+        $("#code").blur(function () {
+            //验证为通过阻止表单提交
+            flag--
+            var code=$(this).val()
+            //判断不可为空
+            if(!code){
+                $(this).next().html("验证码不可为空")
+                return false
+            }
+            //验证验证码是否有效
+            $.ajax({
+                type:"post",
+                url:"/reg/code",
+                data:{code:code},
+//                dataType:"json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res){
+                    if(res.error==0){
+                        $("#code").next().html(res.msg)
+                        return false
+                    }
+                    $("#code").next().html("")
+                }
+            });
+            //验证为通过阻止表单提交
+            flag++
+        })
         //验证用户名
         $("#name").blur(function () {
+            //验证为通过阻止表单提交
+            flag--
             var name=$(this).val()
             //判断不可为空
             if(!name){
-                $(this).next().html("<font color=red>用户名不可为空</font>")
+                $(this).next().html("用户名不可为空")
                 return false
             }
             //验证正则
             var reg=/^[a-zA-Z0-9_-]{4,16}$/
             if(!reg.test(name)){
-                $(this).next().html("<font color=red>必须由4到16位（字母，数字，下划线，减号）</font>")
+                $(this).next().html("用户名必须由4到16位（字母，数字，下划线，减号）")
                 return false
             }
             //验证是否已存在
@@ -122,55 +159,69 @@
                 },
                 success: function(res){
                     if(res.error == 0){
-                        $("#name").next().html("<font color=red>"+res.msg+"</font>")
+                        $("#name").next().html(res.msg)
                         return false
                     }
                     $("#name").next().html("")
                 }
-            })
+            });
+            //验证为通过阻止表单提交
+            flag++
         })
         //验证邮箱
         $("#email").blur(function () {
+            //验证为通过阻止表单提交
+            flag--
             var email=$(this).val()
             //判断不可为空
             if(!email){
-                $(this).next().html("<font color=red>邮箱不可为空</font>")
+                $(this).next().html("邮箱不可为空")
                 return false
             }
             //验证正则
             var reg=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
             if(!reg.test(email)){
-                $(this).next().html("<font color=red>邮箱格式不正确</font>")
+                $(this).next().html("邮箱格式不正确")
                 return false
             }
-            $(this).next().html("")
+            $(this).next().html("");
+            //验证为通过阻止表单提交
+            flag++
         })
         //验证密码
         $("#pwd").blur(function () {
+            //验证为通过阻止表单提交
+            flag--
             var pwd=$(this).val()
             //判断不可为空
             if(!pwd){
-                $(this).next().html("<font color=red>密码不可为空</font>")
+                $(this).next().html("密码不可为空")
                 return false
             }
             //验证正则
-            var reg= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/
+            var reg= /^[0-9A-Za-z]{8,16}$/
             if(!reg.test(pwd)){
-                $(this).next().html("<font color=red>密码必须由至少8-16个字符，至少1个大写字母，1个小写字母和1个数字</font>")
+                $(this).next().html("密码必须由8-16位数字或这字母组成")
                 return false
             }
-            $(this).next().html("")
+            $(this).next().html("");
+            //验证为通过阻止表单提交
+            flag++
         })
         //验证确认密码
         $("#password").blur(function () {
+            //验证为通过阻止表单提交
+            flag--
             var pwd=$("#pwd").val()
             var password=$(this).val()
             //判断确认密码是否和密码一致
             if(pwd!=password || password==""){
-                $(this).next().html("<font color=red>确认密码和密码不一致</font>")
+                $(this).next().html("确认密码和密码不一致")
                 return false
             }
-            $(this).next().html("")
+            $(this).next().html("");
+            //验证为通过阻止表单提交
+            flag++
         })
         //验证手机号
         $("#phone").blur(function () {
@@ -186,7 +237,19 @@
                 $("#phoneSpan").html("<font color=red>手机号格式不正确</font>")
                 return false
             }
-            $("#phoneSpan").html("")
+            $("#phoneSpan").html("");
+            //验证为通过阻止表单提交
+//            flag++
+            //console.log(flag)
+        })
+        //验证表单是否可以提交
+        $("form").submit(function (event) {
+//            console.log(flag)
+//            console.log('form表单提交了......')
+            // 终止默认事件的传递
+//            if(flag != 7){
+//                event.preventDefault()
+//            }
         })
     </script>
 @endsection

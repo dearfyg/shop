@@ -170,7 +170,7 @@
                     </a>
                 </div>
                 <div class="col s4">
-                    <a href="login.html" class="button-link">
+                    <a href="{{url("/login")}}" class="button-link">
                         <div class="menu-link">
                             <div class="icon">
                                 <i class="fa fa-sign-in"></i>

@@ -12,15 +12,54 @@ use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
+    public $uuid;
+    public function __construct()
+    {
+        $this->uuid = $_COOKIE['uuid'];     //用户标识
+    }
     //登录
     public function login(){
         return view("login.login");
     }
+
+
+
     /**
      * 注册
      */
     public function register(){
         return view("login.register");
+    }
+    public function reg(){
+        //表单验证
+        request()->validate([
+            'user_name' => 'bail|required|unique:user|regex:/^[a-zA-Z0-9_-]{4,16}$/',
+            'user_email' => 'bail|required|regex:/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/',
+            'user_pwd' => 'bail|required|regex:/^[0-9A-Za-z]{8,16}$/',
+            'password' => 'bail|required|same:user_pwd',
+            'user_phone' => 'bail|required|regex:/^1[3-578]\d{9}$/',
+        ],[
+            "user_name.required"=>"用户名不可为空",
+            "user_name.unique"=>"用户名已存在",
+            "user_name.regex"=>"用户名必须由4到16位（字母，数字，下划线，减号）",
+            "user_email.required"=>"邮箱不可为空",
+            "user_email.regex"=>"邮箱格式不正确",
+            "user_pwd.required"=>"密码不可为空",
+            "user_pwd.regex"=>"密码必须由8-16位数字或这字母组成",
+            "password.required"=>"确认密码不可为空",
+            "password.same"=>"确认密码必须和密码一致",
+            "user_phone.required"=>"手机号不可为空",
+            "user_phone.regex"=>"手机号格式不正确",
+
+        ]);
+        $data=request()->except("_token");
+        //获取redis中该uuid的验证码
+        $codeRedis=Redis::get($this->uuid);
+        //不存在失效
+        if(!$codeRedis){
+
+        }
+
     }
     /**
      * 获取验证码
@@ -32,8 +71,11 @@ class LoginController extends Controller
         }
         $code=rand(100000,999999);
         //将验证码存入redis五分钟有效
-
+        Redis::set($this->uuid,$code);
+        Redis::expire($this->uuid,300);
+        //调用短信发送验证码方法
         $res=$this->message($phone,$code);
+        //判断是否发送成功
         if($res["Message"]!="OK"){
             return $this->returnArr(0,"发送失败");
         }
@@ -43,7 +85,17 @@ class LoginController extends Controller
      * 验证验证码
      */
     public function code(){
-
+        $code=request()->code;
+        //获取redis中该uuid的验证码
+        $codeRedis=Redis::get($this->uuid);
+        //判断是否存在
+        if($codeRedis){
+            //判断是否正确
+            if($codeRedis==$code){
+                return $this->returnArr(1,"ok");
+            }
+        }
+        return $this->returnArr(0,"验证码错误或已失效");
     }
     /**
      * 验证用户名是否存在
