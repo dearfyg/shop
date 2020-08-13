@@ -151,6 +151,8 @@ class CartController extends Controller
         //写用户的购物车
         $key1 = 'cart:ids:set:'.$user_id;
         Redis::srem($key1,$goods_id);
+        $key='cart:ids:set:'.$user_id;
+        
     }
 
 }
