@@ -204,14 +204,14 @@
         <div class="cart-menu">
             <div class="container">
                 <div class="content">
-                    @foreach($cartInfo as $k=>$v)
+                    {{--@foreach($cartInfo as $k=>$v)--}}
                     <div class="cart-1">
                         <div class="row">
                             <div class="col s5">
-                                <img src="{{env('APP_URL')}}{{'/storage/'.$v['goods_img']}}" alt="">
+                                {{--<img src="{{env('APP_URL')}}{{'/storage/'.$v['goods_img']}}" alt="">--}}
                             </div>
                             <div class="col s7">
-                                <h5><a href="">{{$v['goods_name']}}</a></h5>
+                                {{--<h5><a href="">{{$v['goods_name']}}</a></h5>--}}
                             </div>
                         </div>
                         <div class="row quantity">
@@ -219,7 +219,7 @@
                                 <h5>Quantity</h5>
                             </div>
                             <div class="col s7">
-                                <h5>{{$v['num']}}</h5>
+                                {{--<h5>{{$v['num']}}</h5>--}}
                             </div>
                         </div>
                         <div class="row">
@@ -227,7 +227,7 @@
                                 <h5>Price</h5>
                             </div>
                             <div class="col s7">
-                                <h5>{{$v['goods_price']}}</h5>
+                                {{--<h5>{{$v['goods_price']}}</h5>--}}
                             </div>
                         </div>
                         <div class="row">
@@ -235,7 +235,7 @@
                         </div>
                     </div>
                         <div class="divider"></div>
-                    @endforeach
+                    {{--@endforeach--}}
 
 
                 <div class="total">
@@ -246,7 +246,7 @@
                             <h6>Total</h6>
                         </div>
                         <div class="col s5">
-                            <h6>${{$money}}</h6>
+                            {{--<h6>${{$money}}</h6>--}}
                         </div>
                     </div>
                 </div>

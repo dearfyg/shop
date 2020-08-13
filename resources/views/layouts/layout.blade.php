@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
 
     <title>@yield('title')</title>
+    <script src="/static/index/js/js.cookie-2.2.1.min.js"></script>
+    <script src="/static/index/js/init.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,9 +29,6 @@
     <script src="/static/index/js/fakeLoader.min.js"></script>
     <script src="/static/index/js/animatedModal.min.js"></script>
     <script src="/static/index/js/main.js"></script>
-    <script src="/static/index/js/js.cookie-2.2.1.min.js"></script>
-    <script src="/static/index/js/init.js"></script>
-
 </head>
 <body>
 {{--头部--}}
