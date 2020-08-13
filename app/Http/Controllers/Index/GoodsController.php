@@ -12,7 +12,7 @@ class GoodsController extends Controller
      * 产品列表
      */
     public function list(){
-        //判断redis中是否有商品数据
+        //判断redis中是否有商品数据hjxs
             $data=Goods::select("admin_goods.*","Category.id","Category.cate_name")
 //                ->where()
                 ->leftJoin("Category","admin_goods.cate_id","=","Category.id")
@@ -20,12 +20,13 @@ class GoodsController extends Controller
                 ->toArray();
 
         return view("goods.list",["data"=>$data]);
+        //hjxe
     }
     /*
      * 产品详情
      */
     public function detail(){
-        //接产品id
+        //接产品idhjxs
         $id=request()->goods_id;
         $video=Video::where("id",$id)->first();
         //判断id是否在redis中
@@ -46,11 +47,13 @@ class GoodsController extends Controller
         Redis::zincrby($key,1,$id);
         //查询数据
         return view("goods.detail",["data"=>$data,"video"=>$video]);
+        //hjxe
     }
     /*
      *计算商品数量，防止超卖
      */
     public function add(){
+        //hjxs
         $goods_id=request()->goods_id;
         $seckill=Redis::incr("seckill");
         if($seckill>10){
@@ -60,5 +63,6 @@ class GoodsController extends Controller
             //跳转付款页面
             echo "请支付";
         }
+        //hjxe
     }
 }
