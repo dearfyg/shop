@@ -31,15 +31,19 @@
 <!-- end cart menu -->
 
 <!-- shop single -->
+
+
 <div class="pages section">
     <div class="container">
         <div class="shop-single">
+
             <img src="{{env("APP_URL")}}{{"/storage/public/".$data["goods_img"]}}" alt="">
             <h5>{{$data["goods_name"]}}</h5>
             <div class="price">${{$data["goods_price"]}} <p>积分:<span>{{$data["goods_score"]}}</span></p></div>
             <p>{{$data["goods_desc"]}}</p>
             <h2> 该商品浏览量为<font color="red" size="18">{{$sum}}</font></h2>
-            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data["goods_id"]}}">加入购物车</a>
+            <a type="button" class="btn button-default gocart"  goods_id="{{$data['goods_id']}}" href="javascript:;">加入购物车</a>
+
         </div>
         <div class="prism-player" id="player-con"></div>
         <script>
@@ -60,6 +64,13 @@
                 }
             );
         </script>
+
+
+        </div>
+        <div  class="prism-player" id="J_prismPlayer"></div>
+
+
+
         <div class="review">
             <h5>1 reviews</h5>
             <div class="review-details">
@@ -114,4 +125,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
+<script src="/static/index/js/cart.js"></script>
 @endsection

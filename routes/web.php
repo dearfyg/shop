@@ -42,6 +42,7 @@ Route::get("/cart/del","Index\CartController@del");//购物车删除商品
 Route::get("cart/subtotal","Index\CartController@subtotal");//结算小计方法
 Route::get("/blog/list","Index\BlogController@list");       //博客列表
 Route::get("/blog/detail","Index\BlogController@detail");       //博客详情
+
 Route::get("goods/rob","Index\GoodsController@rob");//抢购
 Route::get("sign","Index\IndexController@sign");//签到
 Route::get("decode","Cron\VideoController@decoder");//解码
@@ -54,4 +55,11 @@ Route::prefix("prize")->Group(function(){
     Route::get("prize","Prize\PrizeController@prize");//抽奖页面
     Route::get("prizeDo","Prize\PrizeController@prizeDo");//抽奖规则
 });
+
+
+Route::get("/goods/add","Index\GoodsController@add");       //购买商品
+Route::get("/login/login","LoginController@login");//登陆表单
+Route::post("/login/loginDo","LoginController@loginDo");//登陆方法
+
+Route::get("/cron","CronController@cron");
 
