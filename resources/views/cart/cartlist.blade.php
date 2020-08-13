@@ -1,6 +1,6 @@
 @extends("layouts.layout")
 @section("title","订单列表")
-    @section("content")
+@section("content")
     <div class="cart section">
         <div class="container">
             <div class="pages-head">
