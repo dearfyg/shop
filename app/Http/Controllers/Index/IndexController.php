@@ -51,4 +51,10 @@ class IndexController extends Controller
         //已经签到
 
     }
+    /**
+    个人中心
+     ***/
+    public function center(){
+        return view("index.center");
+    }
 }
