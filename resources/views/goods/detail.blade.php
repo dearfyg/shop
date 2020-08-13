@@ -31,8 +31,8 @@
             <h5>{{$data['goods_name']}}</h5>
             <div class="price">${{$data['goods_price']}} <p>积分:<span>{{$data['goods_score']}}</span></p></div>
             <p>{{$data['goods_desc']}}</p>
-            <a type="button" class="btn button-default" href="{{'/cart/add?goods_id='.$data['goods_id']}}">加入购物车</a>
-            <a class="btn button-default" href="{{'/goods/add?goods_id='.$data['goods_id']}}">立即购买</a>
+            <a type="button" class="btn button-default" id="gocart" goods_id="{{$data['goods_id']}}" href="javascript:;">加入购物车</a>
+
 
         </div>
         <div  class="prism-player" id="J_prismPlayer"></div>
@@ -119,4 +119,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
+<script src="/static/index/js/cart.js"></script>
 @endsection

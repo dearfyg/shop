@@ -48,7 +48,7 @@
                         {{$v['goods_price']}}
                         <p>积分:<span>{{$v['goods_score']}}</span></p>
                     </div>
-                    <a class="btn button-default" href="{{'/cart/add?goods_id='.$v['goods_id']}}">加入购物车</a>
+                    <a class="btn button-default" id="gocart" goods_id="{{$v['goods_id']}}" href="javascript:;">加入购物车</a>
 
                 </div>
             </div>
@@ -79,4 +79,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
+<script src="/static/index/js/cart.js"></script>
 @endsection

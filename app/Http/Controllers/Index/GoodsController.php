@@ -40,7 +40,6 @@ class GoodsController extends Controller
                 ->leftJoin("Category","admin_goods.cate_id","=","Category.id")
                 ->first()->toArray();
             Redis::hmset($id,$data);
-
         }
         //访问一次逐步增加
         $key="goods_id:".$id;

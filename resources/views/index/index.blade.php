@@ -114,7 +114,7 @@
                     <div class="price">
                         ${{$n->goods_price}}
                     </div>
-                    <a class="btn button-default" href="{{url('/cart/add?goods_id=').$n->goods_id}}">ADD TO CART</a>
+                    <a class="btn button-default"id="gocart" goods_id="{{$n->goods_id}}" href="javascript:;">ADD TO CART</a>
                 </div>
             </div>
             @endforeach
@@ -152,7 +152,7 @@
                     <div class="price">
                         ${{$h->goods_price}}
                     </div>
-                    <a class="btn button-default" href="{{url('/cart/add?goods_id=').$h->goods_id}}">ADD TO CART</a>
+                    <a class="btn button-default" id="gocart" goods_id="{{$h->goods_id}}" href="javascript:;"}}>ADD TO CART</a>
                 </div>
             </div>
             @endforeach
@@ -175,4 +175,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
+<script src="/static/index/js/cart.js"></script>
 @endsection

@@ -9,12 +9,21 @@ use App\Model\Cart;
 use Illuminate\Support\Facades\Redis;
 class CartController extends Controller
 {
+    public $now;
+    public $uuid;
+
+    public function __construct()
+    {
+        $this->now = time();
+        $this->uuid = $_COOKIE['uuid'];     //用户标识
+    }
     //购物车加入商品
     public function cart_add(){
         $id=request()->goods_id;
-        $user_id=3;
+//        dd($id);
+        $user_id=$this->uuid;
         //判断是否有商品id
-        if($id<=0){
+        if(empty($id)){
 //            $data=[
 //                'goods_id'=>$id,
 //                "user_id"=>3,
@@ -29,10 +38,19 @@ class CartController extends Controller
 //            }else{
 //                Cart::insert($data);
 //            }
-            throw new Exception("请输入商品ID");
+            return $repson=[
+               'code'=>"100001",
+                'msg'=>"添加购物车失败"
+            ];
         }
         //根据商品id查询数据库户取商品信息
         $goodData=Goods::where("goods_id",$id)->first()->toArray();
+        if(empty($goodData)){
+            return $repson=[
+                'code'=>"100002",
+                'msg'=>"没有该商品"
+            ];
+        }
         //拼写key
         $key="cart:".$user_id.":".$id;
         //判断购物车之前有无此商品
@@ -57,6 +75,10 @@ class CartController extends Controller
 
             Redis::hset($key, 'num', $newNum);
         }
+        return $repson=[
+            'code'=>"0000",
+            'msg'=>"添加购物车成功"
+        ];
     }
     //商品购物车展示
     public function cartlist()
@@ -69,7 +91,7 @@ class CartController extends Controller
 //        }else{
 //            //查询redis中的数据
 //        }
-        $user_id=3;
+        $user_id=$this->uuid;
 
         $key = 'cart:ids:set:'.$user_id;
 
@@ -91,7 +113,7 @@ class CartController extends Controller
     }
     //获取总价
     public function gopay(){
-        $user_id=3;
+        $user_id=$this->uuid;
         $key = 'cart:ids:set:'.$user_id;
 
         //先根据集合拿到商品ID
@@ -116,7 +138,7 @@ class CartController extends Controller
         $buy_num=request()->buy_num;
         $id=request()->goods_id;
         $price=request()->price;
-        $user_id=3;
+        $user_id=$this->uuid;
         $key="cart:".$user_id.":".$id;
         Redis::hset($key, 'num', $buy_num);
         $totoal=$price*$buy_num;
@@ -124,8 +146,11 @@ class CartController extends Controller
     }
     //购物车删除商品
     public function del(){
+        $user_id=$this->uuid;
         $goods_id=request()->goods_id;
-        $res=Cart::where("goods_id",$goods_id)->delete();
+        //写用户的购物车
+        $key1 = 'cart:ids:set:'.$user_id;
+        Redis::srem($key1,$goods_id);
     }
 
 }
