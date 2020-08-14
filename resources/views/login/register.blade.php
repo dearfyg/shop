@@ -37,7 +37,7 @@
                         <div class="input-field">
                             <input type="text" id="code" name="code" placeholder="AUTH CODE" class="validate" required>
                             <span style="color:red">
-                                {{$errors->first('code')}}
+                                {{session("msg")}}
                             </span>
                         </div>
                         <center>
@@ -55,7 +55,12 @@
     <div id="fakeLoader"></div>
     <!-- end loader -->
     <script>
-        var flag=1
+        var flag1=false
+        var flag2=false
+        var flag3=false
+        var flag4=false
+        var flag5=false
+        var flag6=false
         //发送验证码
         $("#gain").click(function () {
             var phone=$("#phone").val();
@@ -105,7 +110,7 @@
         //验证验证码
         $("#code").blur(function () {
             //验证为通过阻止表单提交
-            flag--
+            flag1=false
             var code=$(this).val()
             //判断不可为空
             if(!code){
@@ -130,12 +135,12 @@
                 }
             });
             //验证为通过阻止表单提交
-            flag++
+            flag1=true
         })
         //验证用户名
         $("#name").blur(function () {
             //验证为通过阻止表单提交
-            flag--
+            flag2=false
             var name=$(this).val()
             //判断不可为空
             if(!name){
@@ -166,12 +171,12 @@
                 }
             });
             //验证为通过阻止表单提交
-            flag++
+            flag2=true
         })
         //验证邮箱
         $("#email").blur(function () {
             //验证为通过阻止表单提交
-            flag--
+            flag3=false
             var email=$(this).val()
             //判断不可为空
             if(!email){
@@ -186,12 +191,12 @@
             }
             $(this).next().html("");
             //验证为通过阻止表单提交
-            flag++
+            flag3=true
         })
         //验证密码
         $("#pwd").blur(function () {
             //验证为通过阻止表单提交
-            flag--
+            flag4=false
             var pwd=$(this).val()
             //判断不可为空
             if(!pwd){
@@ -206,12 +211,12 @@
             }
             $(this).next().html("");
             //验证为通过阻止表单提交
-            flag++
+            flag4=true
         })
         //验证确认密码
         $("#password").blur(function () {
             //验证为通过阻止表单提交
-            flag--
+            flag5=false
             var pwd=$("#pwd").val()
             var password=$(this).val()
             //判断确认密码是否和密码一致
@@ -221,10 +226,12 @@
             }
             $(this).next().html("");
             //验证为通过阻止表单提交
-            flag++
+            flag5=true
         })
         //验证手机号
         $("#phone").blur(function () {
+            //验证为通过阻止表单提交
+            flag6=false
             var phone=$(this).val()
             //判断不可为空
             if(!phone){
@@ -239,17 +246,18 @@
             }
             $("#phoneSpan").html("");
             //验证为通过阻止表单提交
-//            flag++
-            //console.log(flag)
+            flag6=true
         })
         //验证表单是否可以提交
         $("form").submit(function (event) {
-//            console.log(flag)
-//            console.log('form表单提交了......')
             // 终止默认事件的传递
-//            if(flag != 7){
-//                event.preventDefault()
-//            }
+            if(flag1==false || flag2==false || flag3==false || flag4==false || flag5==false || flag6==false){
+                console.log(111)
+                event.preventDefault()
+            }else{
+                console.log(222)
+            }
+
         })
     </script>
 @endsection

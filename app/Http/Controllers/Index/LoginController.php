@@ -52,12 +52,27 @@ class LoginController extends Controller
             "user_phone.regex"=>"手机号格式不正确",
 
         ]);
-        $data=request()->except("_token");
+        $data=request()->except("_token","code","password");
+        $code=request()->post("code");
         //获取redis中该uuid的验证码
         $codeRedis=Redis::get($this->uuid);
         //不存在失效
-        if(!$codeRedis){
-
+        if(empty($codeRedis)){
+            return redirect("/register")->with("msg","验证码错误或已失效");
+        }
+        //判断验证码是否正确
+        if($codeRedis!=$code){
+            return redirect("/register")->with("msg","验证码错误或已失效");
+        }
+        //添加用户数据
+        $data["time_create"]=time();
+        //密码加密
+        $data["user_pwd"]=password_hash($data["user_pwd"],PASSWORD_DEFAULT);
+        $res=User::create($data);
+        if($res){
+            return redirect("/login");
+        }else{
+            return redirect("/register");
         }
 
     }
