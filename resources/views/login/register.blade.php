@@ -252,10 +252,7 @@
         $("form").submit(function (event) {
             // 终止默认事件的传递
             if(flag1==false || flag2==false || flag3==false || flag4==false || flag5==false || flag6==false){
-                console.log(111)
                 event.preventDefault()
-            }else{
-                console.log(222)
             }
 
         })

@@ -17,7 +17,7 @@
 
 
 Route::get("/login","Index\LoginController@login");//登录方法
-Route::get("/loginDo","Index\LoginController@loginDo");
+Route::post("/loginDo","Index\LoginController@loginDo");
 
 Route::get("/register","Index\LoginController@register");//注册
 Route::post("/reg","Index\LoginController@reg");
