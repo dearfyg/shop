@@ -33,14 +33,14 @@ class VideoController extends Controller
                 //分片文件名
                 $ts = $decode_path.$v->video_title."%03d.ts";
                 //创建文件夹 加 2>&1可以查看错误信息
-                $dir = "cd storage/public/ && mkdir -p hls/$decode_path 2>&1";
+                $dir = "cd storage/ && mkdir -p hls/$decode_path 2>&1";
                 shell_exec($dir);
                 //执行解码
-                $cmd = "cd storage/public/ && ffmpeg -i {$video_path} -codec:v libx264 -codec:a mp3 -map 0 -f ssegment -segment_format mpegts -segment_list  hls/{$m3u8} -segment_time 15  hls/{$ts} 2>&1";
+                $cmd = "cd storage/ && ffmpeg -i {$video_path} -codec:v libx264 -codec:a mp3 -map 0 -f ssegment -segment_format mpegts -segment_list  hls/{$m3u8} -segment_time 15  hls/{$ts} 2>&1";
                 //执行
                 shell_exec($cmd);
                 //获取m3u8路径
-                $m3u8_path = "/storage/public/hls/".$m3u8;
+                $m3u8_path = "/storage/hls/".$m3u8;
                 //修改数据库
                 Video::where("id",$id)->update(["video_status"=>2,"video_m3u8"=>$m3u8_path]);
             }
