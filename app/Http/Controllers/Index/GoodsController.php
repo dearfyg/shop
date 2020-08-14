@@ -6,7 +6,7 @@ use App\Model\Goods;
 use App\Model\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
-
+use App\Model\Reviews;
 
 
 class GoodsController extends Controller
@@ -52,6 +52,7 @@ class GoodsController extends Controller
             $r["score"] = $v;
             $rr[] = $r;
         }
+
         return view("goods.list",["data"=>$data,"link"=>$goods_id,"rr"=>$rr]);
     }
     /*
@@ -62,6 +63,12 @@ class GoodsController extends Controller
     {
         //接产品id
         $id = request()->goods_id;
+//        $userinfo=session("userinfo");
+        //根据用户id,查询评论
+        $reviews=Reviews::where(['goods_id'=>$id,'user_id'=>3])
+            ->orderBy('reviews_time',"desc")
+            ->get();
+//        dd($reviews);
         //判断是否有此redis
         $a = Redis::zscore("ss:goods", $id);
         //如果没有
@@ -88,7 +95,7 @@ class GoodsController extends Controller
         }
         //通过goods id查询商品视频表
         $video = Video::where("goods_id", $id)->first("video_m3u8");
-        return view("goods.detail", ["data" => $data, "sum" => $sum, "video" => $video]);
+        return view("goods.detail", ["data" => $data, "sum" => $sum, "video" => $video,'reviews'=>$reviews]);
     }
     /*
     *抢购
@@ -110,5 +117,48 @@ class GoodsController extends Controller
             return "库存不足";
         }
     }
-
+    /*
+     * 评论
+     */
+    public function reviews(){
+        //接收评论内容和商品id
+        $content=request()->content;
+        if(empty($content)){
+            $reposn=[
+              'code'=>100003,
+                'msg'=>'评论不能为空'
+            ];
+            return $reposn;
+        }
+        $goods_id=request()->goods_id;
+        if(empty($goods_id)){
+            $reposn=[
+                'code'=>100004,
+                'msg'=>'商品id不能为空'
+            ];
+            return $reposn;
+        }
+        //获取用户id
+//        $user_info=session("userinfo");
+        $data=[
+//            'user_id'=>$user_info['user_id'],
+            'user_id'=>3,
+            'content'=>$content,
+            'reviews_time'=>time(),
+            'goods_id'=>$goods_id
+        ];
+        $res=Reviews::insert($data);
+        if($res){
+            $reposn=[
+                'code'=>000000,
+                'msg'=>'评论成功!'
+            ];
+        }else{
+            $reposn=[
+                'code'=>100005,
+                'msg'=>'评论失败!!!'
+            ];
+        }
+        return $reposn;
+    }
 }

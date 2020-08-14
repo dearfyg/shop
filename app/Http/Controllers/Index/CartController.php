@@ -58,7 +58,6 @@ class CartController extends Controller
         $cartNum=1;
         if(!$data){
             //之前没有此商品，进行添加
-
             $goodData['num'] = $cartNum;
             //将商品数据放入redis hash中
             Redis::hmset($key, $goodData);
@@ -151,6 +150,7 @@ class CartController extends Controller
         //写用户的购物车
         $key1 = 'cart:ids:set:'.$user_id;
         Redis::srem($key1,$goods_id);
+        $key="cart:".$user_id.":".$goods_id;
+        Redis::del($key);
     }
-
 }
