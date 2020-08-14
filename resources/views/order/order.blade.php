@@ -34,8 +34,8 @@
                         <li class="active">
                             <div class="collapsible-header active"><h5>订单详情</h5></div>
                             <div class="collapsible-body">
-                                @foreach($orderInfo as $k=>$v)
-                                <div class="order-review order" goods_id="{{$v->goods_id}}" buy_num="{{$v->buy_num}}">
+                                @foreach($goodsInfo as $k=>$v)
+                                <div class="order-review order" order_no ="{{$v->order_no}}">
                                     <div class="row">
                                         <div class="col s12">
                                             <div class="divider"></div>
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="javascript:void(0);" class="btn button-default button-fullwidth pay" >去支付</a>
+                                    <a href="javascript:;" class="btn button-default button-fullwidth pay" >去支付</a>
                                 </div>
                             </div>
                         </li>
@@ -134,32 +134,10 @@
     </div>
 </div>
 <!-- end checkout -->
-
 <script>
-    //页面加载事件
-    $(function(){
-       //支付方法
-        $(".pay").click(function(){
-            var sum = $(this).prev().find("#sum").text();
-            var sum = sum.substr(1,sum.length);
-            //空字符串
-            var str = "";
-            //获取对象
-            $(".order").each(function(){
-               str += $(this).attr("goods_id")+",";
-            })
-            var goods_id = str.substring(0,str.length-1);
-            //空字符串
-            var string = "";
-            $(".order").each(function(){
-                string += $(this).attr("buy_num")+",";
-            })
-            var buy_num = string.substring(0,string.length-1);
-            //跳转
-            location.href ="pay?goods_id="+goods_id+"&buy_num="+buy_num+"&sum="+sum;
-
-
-        })
-    });
+    $(".pay").click(function(){
+        var order_no = $(".order").attr("order_no");
+        location.href = "/order/pay?order_no="+order_no;
+    })
 </script>
 @endsection
