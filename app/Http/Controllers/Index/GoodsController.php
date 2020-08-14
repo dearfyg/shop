@@ -67,7 +67,8 @@ class GoodsController extends Controller
         //根据用户id,查询评论
         $reviews=Reviews::where(['goods_id'=>$id,'user_id'=>3])
             ->orderBy('reviews_time',"desc")
-            ->get();
+            ->get()
+            ->toArray();
 //        dd($reviews);
         //判断是否有此redis
         $a = Redis::zscore("ss:goods", $id);
@@ -139,7 +140,14 @@ class GoodsController extends Controller
             return $reposn;
         }
         //获取用户id
-//        $user_info=session("userinfo");
+        $user_info=session("userinfo");
+//        if($user_info){
+//              $repson=[
+//                  'code'=>100006,
+//                    'msg'=>'请您先登录'
+//              ];
+//                return $reposn;
+//       }
         $data=[
 //            'user_id'=>$user_info['user_id'],
             'user_id'=>3,
@@ -157,6 +165,34 @@ class GoodsController extends Controller
             $reposn=[
                 'code'=>100005,
                 'msg'=>'评论失败!!!'
+            ];
+        }
+        return $reposn;
+    }
+    /*
+     * 评论删除
+     */
+    public function reviewsDel(){
+        $reviews_id=request()->reviews_id;
+        //判断有无登陆
+//        $userinfo=session("userinfo");
+//        if(!$userinfo){
+//             $reposn=[
+//                'code'=>100007,
+//                'msg'=>'请您先登录'
+//            ];
+//            return $reposn;
+//        }
+        $res=Reviews::where(["reviews_id"=>$reviews_id,"user_id"=>3])->delete();
+        if($res){
+            $reposn=[
+               'code'=>000000,
+                'msg'=>'评论删除成功'
+            ];
+        }else{
+            $reposn=[
+                'code'=>100008,
+                'msg'=>'评论删除失败'
             ];
         }
         return $reposn;
