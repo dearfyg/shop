@@ -81,7 +81,7 @@
                     @foreach($reviews as $v)
                     <div class="col s9">
                         <div class="review-title">
-                            <span><strong>{{$v->goods_id}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v->reviews_time)}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Reply</a></span>
+                            <span><strong>{{$v->user_id}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v->reviews_time)}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Reply</a></span>
                         </div>
                         <p>{{$v->content}}</p>
                     </div>

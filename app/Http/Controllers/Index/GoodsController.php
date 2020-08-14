@@ -52,6 +52,7 @@ class GoodsController extends Controller
             $r["score"] = $v;
             $rr[] = $r;
         }
+
         return view("goods.list",["data"=>$data,"link"=>$goods_id,"rr"=>$rr]);
     }
     /*
@@ -62,7 +63,7 @@ class GoodsController extends Controller
     {
         //接产品id
         $id = request()->goods_id;
-        $userinfo=session("userinfo");
+//        $userinfo=session("userinfo");
         //根据用户id,查询评论
         $reviews=Reviews::where(['goods_id'=>$id,'user_id'=>3])
             ->orderBy('reviews_time',"desc")
@@ -94,7 +95,7 @@ class GoodsController extends Controller
         }
         //通过goods id查询商品视频表
         $video = Video::where("goods_id", $id)->first("video_m3u8");
-        return view("goods.detail", ["data" => $data, "sum" => $sum, "video" => $video,'reviews'=>$reviews,'name'=>$userinfo['user_name']]);
+        return view("goods.detail", ["data" => $data, "sum" => $sum, "video" => $video,'reviews'=>$reviews]);
     }
     /*
     *抢购
