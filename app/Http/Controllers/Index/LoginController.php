@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Controllers\Controller;
+use App\Model\GithubUser;
 use App\Model\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -12,15 +14,26 @@ use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
-    public $uuid;
-    public function __construct()
-    {
-        $this->uuid = $_COOKIE['uuid'];     //用户标识
-    }
-    //登录
+    /**
+     * 登陆
+     */
     public function login(){
-        return view("login.login");
+        //判断用户是否登陆
+        if(empty(session("userinfo"))){
+            return view("login.login");
+        }
+        return redirect("/");
     }
+    /**
+     * 退出登陆
+     */
+    public function quit(){
+        request()->session()->flush("userinfo");
+        return redirect("/");
+    }
+    /**
+     * 执行登陆
+     */
     public function loginDo(){
         //表单验证
         request()->validate([
@@ -45,6 +58,8 @@ class LoginController extends Controller
                 //登陆成功清空错误次数和时间
                 User::where("user_id",$res["user_id"])->update(["error_num"=>0,"error_time"=>null]);
                 //登陆成功
+                //将用户信息冲入session
+                session(["userinfo"=>$res->toArray()]);
                 return redirect("/login")->with("msg","登陆成功");
             }
             $user_id=$res["user_id"];       //当前用户id
@@ -78,8 +93,86 @@ class LoginController extends Controller
         //登陆失败
         return redirect("/login")->with("msg","账号或密码错误");
     }
+    /**
+     * github登陆
+     */
+    public function loginGithub(){
+        $url="https://github.com/login/oauth/authorize?client_id=".env('OAUTH_GITHUB_ID')."&redirect_uri=".env("APP_URL")."/oauth/github";
+        return redirect($url);
+    }
+    /**
+     * github回调
+     */
+    public function github(){
+        //接受github返回的code
+        $code=$_GET["code"];
+        //换取access_token
+        $token=$this->getToken($code);
+        //获取github用户信息
+        $UserInfo=$this->githubUserInfo($token);
+        //判断该github是否存在
+        $res=GithubUser::where("guid",$UserInfo["id"])->first();
+        if(!$res){
+            //将用户信息填入数据库
+            //判断github用户名是否为空
+            if(empty($UserInfo["name"])){
+                //生成随机用户名
+                $UserInfo["name"]=substr(md5(rand(10000,99999).time()),5,15);
+            }
+            $data=[
+                "guid"=>$UserInfo["id"],     //github返回id
+                "avatar_url"=>$UserInfo["avatar_url"],
+                "github_url"=>$UserInfo["html_url"],
+                "github_username"=>$UserInfo["name"],
+                "github_email"=>$UserInfo["email"],
+                "create_time"=>time()
+            ];
+            $github=GithubUser::create($data);
 
+            //将用户名和github表id存入主用户表
+            $user=User::create(["user_name"=>$UserInfo["name"],"g_id"=>$github["g_id"],"time_create"=>time()])->toArray();
+            //将用户信息存入session
+            session(["userinfo"=>$user]);
+        }else{
+            $user=User::where("g_id",$res["g_id"])->first()->toArray();
+            //将用户信息存入session
+            session(["userinfo"=>$user]);
+        }
+        return redirect("/");
+    }
+    /**
+     * 根据code 换取 token
+     */
+    protected function getToken($code){
+        $url = 'https://github.com/login/oauth/access_token';
 
+        //post 接口  Guzzle or  curl
+        $client = new Client();
+        $response = $client->request('POST',$url,[
+            'form_params'   => [
+                'client_id'         => env('OAUTH_GITHUB_ID'),
+                'client_secret'     => env('OAUTH_GITHUB_SEC'),
+                'code'              => $code
+            ]
+        ]);
+        //将查询到的字符串解析到变量中
+        parse_str($response->getBody(),$str);
+        return $str['access_token'];
+    }
+    /**
+     * 获取github个人信息
+     */
+    public function githubUserInfo($token){
+        $url = 'https://api.github.com/user';
+        //请求接口
+        $client = new Client();
+        $response = $client->request('GET',$url,[
+            'headers'   => [
+                'Authorization' => "token $token"
+            ]
+        ]);
+        return json_decode($response->getBody(),true);
+    }
 
     /**
      * 注册
@@ -87,6 +180,10 @@ class LoginController extends Controller
     public function register(){
         return view("login.register");
     }
+
+    /**
+     * 执行注册
+     */
     public function reg(){
         //表单验证
         request()->validate([
@@ -112,7 +209,8 @@ class LoginController extends Controller
         $data=request()->except("_token","code","password");
         $code=request()->post("code");
         //获取redis中该uuid的验证码
-        $codeRedis=Redis::get($this->uuid);
+        $uuid=$_COOKIE["uuid"];
+        $codeRedis=Redis::get($uuid);
         //不存在失效
         if(empty($codeRedis)){
             return redirect("/register")->with("msg","验证码错误或已失效");
@@ -141,10 +239,12 @@ class LoginController extends Controller
         if(!$phone){
             return $this->returnArr(0,"参数缺失");
         }
-        $code=rand(100000,999999);
+        //$code=rand(100000,999999);
+        $code=111111;
         //将验证码存入redis五分钟有效
-        Redis::set($this->uuid,$code);
-        Redis::expire($this->uuid,300);
+        $uuid=$_COOKIE["uuid"];
+        Redis::set($uuid,$code);
+        Redis::expire($uuid,300);
         //调用短信发送验证码方法
         $res=$this->message($phone,$code);
         //判断是否发送成功
@@ -159,7 +259,8 @@ class LoginController extends Controller
     public function code(){
         $code=request()->code;
         //获取redis中该uuid的验证码
-        $codeRedis=Redis::get($this->uuid);
+        $uuid=$_COOKIE["uuid"];
+        $codeRedis=Redis::get($uuid);
         //判断是否存在
         if($codeRedis){
             //判断是否正确
@@ -231,5 +332,17 @@ class LoginController extends Controller
             "msg"=>$msg
         ];
         return $arr;
+    }
+    /**
+     * 忘记密码
+     */
+    public function forgot(){
+        return view("login.forgot");
+    }
+    /**
+     * 修改密码
+     */
+    public function forgotDo(){
+
     }
 }

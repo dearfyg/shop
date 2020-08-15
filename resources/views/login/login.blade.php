@@ -20,9 +20,12 @@
                         <input type="password" id="pwd" name="user_pwd" class="validate" placeholder="PASSWORD" required>
                         <span style="color:red" >{{$errors->first("user_pwd")}}{{session("msg")}}</span>
                     </div>
-                        <a href=""><h6>Forgot Password ?</h6></a>
+                        <a href="/forgot"><h6>Forgot Password ?</h6></a>
                         <a href="{{url('/register')}}"><h6>Register</h6></a>
                         <input class="btn button-default" type="submit" value="LOGIN">
+                    <div class="input-field">
+                        <a href="/login/github"><img src="static/index/img/github.jpg" width="25" alt=""></a>
+                    </div>
                 </form>
             </div>
         </div>

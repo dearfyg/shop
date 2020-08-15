@@ -14,37 +14,32 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-
-
-Route::get("/login","Index\LoginController@login");//登录方法
+//首页
+Route::get("/","Index\IndexController@index");
+//登录
+Route::get("/login","Index\LoginController@login");
 Route::post("/loginDo","Index\LoginController@loginDo");
-
-Route::get("/register","Index\LoginController@register");//注册
+Route::get("/quit","Index\LoginController@quit");//退出登陆
+Route::get("/login/github","Index\LoginController@loginGithub");
+Route::get("/oauth/github","Index\LoginController@github");//github回调
+//注册
+Route::get("/register","Index\LoginController@register");
 Route::post("/reg","Index\LoginController@reg");
 Route::post("/reg/gain","Index\LoginController@gain");   //获取验证码
 Route::post("/reg/code","Index\LoginController@code");   //验证验证码
 Route::post("/reg/name","Index\LoginController@name");   //验证用户名
-
-
-
-Route::get("/","Index\IndexController@index");     //首页
+//忘记密码
+Route::get("/forgot","Index\LoginController@forgot");
 
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
-
-
-
 
 Route::get("/order/order","Index\OrderController@order"); //提交订单页面
 Route::get("/order/view","Index\OrderController@view");//订单展示
 Route::get("/order/pay","Index\OrderController@pay"); //支付
 Route::get("/order/success","Index\OrderController@success"); //支付成功同步跳转
-Route::get("/order/notify_url","Index\OrderController@notify_url"); //支付成功异步跳转
-
-
-
-
-
+//支付成功异步跳转
+Route::get("/order/notify_url","Index\OrderController@notify_url");
 Route::get("/cart/add","Index\CartController@cart_add");//添加购物车
 Route::get("/cartlist","Index\CartController@cartlist");//购物车列表
 Route::get("/cart/gopay","Index\CartController@gopay");//购物车跳转;
@@ -65,4 +60,7 @@ Route::prefix("prize")->Group(function(){
     Route::get("prize","Prize\PrizeController@prize");//抽奖页面
     Route::get("prizeDo","Prize\PrizeController@prizeDo");//抽奖规则
 });
+
+
+
 
