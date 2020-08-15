@@ -44,6 +44,10 @@ Route::get("/order/notify_url","Index\OrderController@notify_url"); //支付成�
 
 
 
+Route::get("/wish","Index\WishController@wish_list");//收藏列表
+Route::get("/wish/add","Index\WishController@wish_add");//收藏列表
+Route::get("/wish/del","Index\WishController@wish_del");//取消收藏
+
 
 Route::get("/cart/add","Index\CartController@cart_add");//添加购物车
 Route::get("/cartlist","Index\CartController@cartlist");//购物车列表

@@ -141,16 +141,16 @@ class GoodsController extends Controller
         }
         //获取用户id
         $user_info=session("userinfo");
-//        if($user_info){
-//              $repson=[
-//                  'code'=>100006,
-//                    'msg'=>'请您先登录'
-//              ];
-//                return $reposn;
-//       }
+        if($user_info){
+              $repson=[
+                  'code'=>100006,
+                    'msg'=>'请您先登录'
+              ];
+                return $repson;
+       }
         $data=[
-//            'user_id'=>$user_info['user_id'],
-            'user_id'=>3,
+            'user_id'=>$user_info['user_id'],
+//            'user_id'=>3,
             'content'=>$content,
             'reviews_time'=>time(),
             'goods_id'=>$goods_id
@@ -175,15 +175,15 @@ class GoodsController extends Controller
     public function reviewsDel(){
         $reviews_id=request()->reviews_id;
         //判断有无登陆
-//        $userinfo=session("userinfo");
-//        if(!$userinfo){
-//             $reposn=[
-//                'code'=>100007,
-//                'msg'=>'请您先登录'
-//            ];
-//            return $reposn;
-//        }
-        $res=Reviews::where(["reviews_id"=>$reviews_id,"user_id"=>3])->delete();
+        $userinfo=session("userinfo");
+        if(!$userinfo){
+             $reposn=[
+                'code'=>100007,
+                'msg'=>'请您先登录'
+            ];
+            return $reposn;
+        }
+        $res=Reviews::where(["reviews_id"=>$reviews_id,"user_id"=>$userinfo['user_id']])->delete();
         if($res){
             $reposn=[
                'code'=>000000,
