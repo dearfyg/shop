@@ -26,7 +26,7 @@ class PrizeController extends Controller
     }
     /**抽奖规则***/
     public function prizeDo(){
-        session(["user_id"=>2);
+        session("userinfo.user_id");
         //查询用户抽奖机会
         $prize = User::select("prize")->first("user_id",session("user_id"));
         //查看抽奖机会是否充足
