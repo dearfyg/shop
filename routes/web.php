@@ -39,7 +39,7 @@ Route::get("/order/order","Index\OrderController@order"); //提交订单页面
 Route::get("/order/view","Index\OrderController@view");//订单展示
 Route::get("/order/pay","Index\OrderController@pay"); //支付
 Route::get("/order/success","Index\OrderController@success"); //支付成功同步跳转
-Route::get("/order/notify_url","Index\OrderController@notify_url"); //支付成功异步跳转
+Route::post("/order/notify_url","Index\OrderController@notify_url"); //支付成功异步跳转
 
 
 

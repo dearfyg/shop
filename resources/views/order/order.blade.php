@@ -60,7 +60,7 @@
                                                     </div>
                                                     <div class="col s7">
                                                         <div class="cart-product">
-                                                            <img src="{{env("APP_URL")."/storage/".$v->goods_img}}" width="40" height="20">
+                                                            <img src="{{env("APP_URL")}}{{"/storage/".$v->goods_img}}" alt="">
                                                         </div>
                                                     </div>
                                             <div class="divider"></div>

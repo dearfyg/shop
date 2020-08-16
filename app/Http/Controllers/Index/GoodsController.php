@@ -94,7 +94,7 @@ class GoodsController extends Controller
             Redis::expire($id . "goods", 300);
         }
         //通过goods id查询商品视频表
-        $video = Video::where("goods_id", $id)->first("video_m3u8");
+        $video = Video::where("goods_id", $id)->value("video_m3u8");
         return view("goods.detail", ["data" => $data, "sum" => $sum, "video" => $video,'reviews'=>$reviews]);
     }
     /*

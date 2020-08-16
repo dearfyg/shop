@@ -37,7 +37,7 @@
     <div class="container">
         <div class="shop-single">
 
-            <img src="{{env("APP_URL")}}{{"/storage/public/".$data["goods_img"]}}" alt="">
+            <img src="{{env("APP_URL")}}{{"/storage/".$data["goods_img"]}}" alt="">
             <h5>{{$data["goods_name"]}}</h5>
             <div class="price">${{$data["goods_price"]}} <p>积分:<span>{{$data["goods_score"]}}</span></p></div>
             <p>{{$data["goods_desc"]}}</p>
@@ -49,7 +49,7 @@
         <script>
             var player = new Aliplayer({
                     "id": "player-con",
-                    "source": "{{$video["video_m3u8"]}}",
+                    "source": "{{$video}}",
                     "width": "20%",
                     "height": "300px",
                     "autoplay": true,
