@@ -28,7 +28,6 @@ class WishController extends Controller
        //判断用户有无商品
             if(empty($wish)){
                 echo ("<script>alert('您还没有收藏过商品呢！再转转吧!');location='/'</script>");
-                die;
             }
         return view("wish.wishadd",['wish'=>$wish]);
     }
@@ -57,7 +56,7 @@ class WishController extends Controller
            return $reposn;
        }
         $data=[
-            "user_id"=>3,
+            "user_id"=>$user_id,
             "goods_id"=>$goods_id,
             "add_time"=>time()
         ];

@@ -63,9 +63,9 @@ class GoodsController extends Controller
     {
         //接产品id
         $id = request()->goods_id;
-//        $userinfo=session("userinfo");
+        $userinfo=session("userinfo");
         //根据用户id,查询评论
-        $reviews=Reviews::where(['goods_id'=>$id,'user_id'=>3])
+        $reviews=Reviews::where(['goods_id'=>$id,'user_id'=>$userinfo['user_id']])
             ->orderBy('reviews_time',"desc")
             ->get()
             ->toArray();
@@ -141,7 +141,7 @@ class GoodsController extends Controller
         }
         //获取用户id
         $user_info=session("userinfo");
-        if($user_info){
+        if(!$user_info){
               $repson=[
                   'code'=>100006,
                     'msg'=>'请您先登录'

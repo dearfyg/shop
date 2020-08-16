@@ -76,11 +76,16 @@
             <div class="review-details">
                 <div class="row">
 
+                    {{--<div class="col s3">--}}
+                        {{--<img src="/static/index/img/user-comment.jpg" alt="" class="responsive-img">--}}
+                    {{--</div>--}}
+
+                    
                     @foreach($reviews as $v)
                     <div class="col s9">
                         <div class="review-title">
                             <p>
-                            <span><strong>{{$v['user_id']}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v['reviews_time'])}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span><strong>{{session("userinfo.user_name")}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v['reviews_time'])}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="">Reply</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-trash del" reviews_id="{{$v['reviews_id']}}"></i>
                             </p>
