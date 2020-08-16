@@ -35,9 +35,9 @@ Route::post("/forgotDo","Index\LoginController@forgotDo");
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
 
-Route::get("/order/order","Index\OrderController@order"); //提交订单页面
-Route::get("/order/view","Index\OrderController@view");//订单展示
-Route::get("/order/pay","Index\OrderController@pay"); //支付
+Route::get("/order/order","Index\OrderController@order")->middleware("login");; //提交订单页面
+Route::get("/order/view","Index\OrderController@view")->middleware("login");;//订单展示
+Route::get("/order/pay","Index\OrderController@pay")->middleware("login");; //支付
 Route::get("/order/success","Index\OrderController@success"); //支付成功同步跳转
 
 Route::post("/order/notify_url","Index\OrderController@notify_url"); //支付成功异步跳转
@@ -65,8 +65,8 @@ Route::get("center","Index\IndexController@center")->middleware("login");//个�
 Route::get("/center/reviews","Index\IndexController@reviews")->middleware("login");//个人中心评论总览
 Route::prefix("prize")->Group(function(){
     //抽奖页面
-    Route::get("prize","Prize\PrizeController@prize");//抽奖页面
-    Route::get("prizeDo","Prize\PrizeController@prizeDo");//抽奖规则
+    Route::get("prize","Prize\PrizeController@prize")->middleware("login");;//抽奖页面
+    Route::get("prizeDo","Prize\PrizeController@prizeDo")->middleware("login");;//抽奖规则
 });
 
 
