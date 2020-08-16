@@ -30,6 +30,7 @@ Route::post("/reg/code","Index\LoginController@code");   //验证验证码
 Route::post("/reg/name","Index\LoginController@name");   //验证用户名
 //忘记密码
 Route::get("/forgot","Index\LoginController@forgot");
+Route::post("/forgotDo","Index\LoginController@forgotDo");
 
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
