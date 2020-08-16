@@ -95,7 +95,7 @@ class OrderController extends Controller
         foreach($goodsId as $k=>$v){
             $goods_num = Goods::where("goods_id",$v)->value("goods_num");
             if($goods_num<=0){
-                return redirect("goods/list")->with("商品库存不足");
+                return redirect("cartlist")->with("商品库存不足");
             }
             foreach($buy_num as $ks=>$vv){
             }
@@ -123,10 +123,10 @@ class OrderController extends Controller
             DB::commit();
             return redirect("order/view?order_no=".$order_no);
         }else{
+            echo "订单提交出现异常";
             //回滚
             DB::rollBack();
-            echo "订单提交出现异常";
-            header("refres:1;url=goods/list");
+            header("refresh:5;url=goods/list");
         }
     }
     //订单展示页面
@@ -191,12 +191,12 @@ class OrderController extends Controller
         //接收数据
         $arr = $_GET;
         $alipaySevice = new \AlipayTradeService($config);
-        $ischeck = $alipaySevice->check($arr);
+        $ischeck = $alipaySevice->check1($arr);
         //验签
         if($ischeck){
             $data = [
                 "order_no"=>$arr["out_trade_no"],
-                "status" => 0,
+                "status" => 1,
             ];
            //判断用户的订单号和当前返回的是否一致
             $order = Order::where($data)->first();
@@ -238,16 +238,22 @@ class OrderController extends Controller
     public function notify_url(){
         $config = config('alipay');
         require_once app_path("Packages/alipay/pagepay/service/AlipayTradeService.php");
+        Log::info("异步成功");
         $arr = $_POST;
+        Log::info($arr);
         $alipaySevice = new \AlipayTradeService($config);
         $ischeck = $alipaySevice->check($arr);
+        Log::info("验签的结果:".$ischeck);
         if($ischeck){
+            Log::info("我已经开始处理逻辑");
             //判断用户的订单号和当前返回的是否一致
             $data = [
                 "order_no"=>$arr["out_trade_no"],
                 "status" => 0,
             ];
+            Log::info($data);
             $order = Order::where($data)->first();
+            Log::info("这是我查询的结果".$order);
             //如果为空则订单号不存在 返回错误
             if(empty($order)){
                  Log::info("订单号错误");

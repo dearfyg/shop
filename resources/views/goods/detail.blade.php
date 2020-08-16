@@ -43,13 +43,13 @@
             <p>{{$data["goods_desc"]}}</p>
             <h2> 该商品浏览量为<font color="red" size="18">{{$sum}}</font></h2>
             <a type="button" class="btn button-default gocart"  goods_id="{{$data['goods_id']}}" href="javascript:;">加入购物车</a>
-
+            <a type="button" class="btn button-default" id="gowish"  goods_id="{{$data['goods_id']}}" href="javascript:;">收藏</a>
         </div>
         <div class="prism-player" id="player-con"></div>
         <script>
             var player = new Aliplayer({
                     "id": "player-con",
-                    "source": "{{$video["video_m3u8"]}}",
+                    "source": "{{$video}}",
                     "width": "20%",
                     "height": "300px",
                     "autoplay": true,
@@ -168,5 +168,16 @@
                 alert("不要瞎点!")
             }
         })
+        $("#gowish").click(function(){
+            var goods_id=$(this).attr("goods_id")
+            $.get(
+                "/wish/add",
+                {goods_id:goods_id},
+                function(res){
+                    alert(res.msg)
+                }
+            )
+        })
     </script>
+
 @endsection
