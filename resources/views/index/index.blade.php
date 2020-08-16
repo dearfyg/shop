@@ -32,7 +32,7 @@
             <div class="caption slider-content  center-align">
                 <h2>{{$i->goods_name}}</h2>
                 <h4>{{$i->goods_desc}}</h4>
-                <a href="{{url('/cart/add?goods_id=').$i->goods_id}}" class="btn button-default">SHOP NOW</a>
+                <a goods_id="{{$i->goods_id}}" href="javascript:;" class="btn button-default gocart">SHOP NOW</a>
             </div>
         </li>
         @endforeach
