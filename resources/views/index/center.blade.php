@@ -39,8 +39,8 @@
 
                         <a target="_self" rel="nofollow" href="javascript:;" title="欢迎您来闪电组">欢迎您来闪电组，尊贵的<font style="color:#ff6561;">{{$userinfo['user_name']}}</font></a>
                         <span class="midActive">
-									<a target="_blank" href="/" title="首页">首页</a>
-									<a target="_blank" href="javascript:;" title="这里就是，别点了">个人中心</a>
+									<a  href="/" title="首页">首页</a>
+									<a  href="javascript:;" title="这里就是，别点了">个人中心</a>
 								</span>
                     </li>
                 </ul>
@@ -77,9 +77,9 @@
                 <dd>
                     <p><a  target="_blank">我的信息</a></p>
                     <p><a href="/center/reviews" >我的评论</a></p>
-                    <p><a href="/wish" target="_blank">我的收藏</a></p>
-                    <p><a href="/cartlist" target="_blank">购物车</a></p>
-                    <p><a href="/prize/prize" target="_blank">抽奖</a></p>
+                    <p><a href="/wish" >我的收藏</a></p>
+                    <p><a href="/cartlist" >购物车</a></p>
+                    <p><a href="/prize/prize" >抽奖</a></p>
                 </dd>
 
         </div>
@@ -94,9 +94,9 @@
                 </div>
                 <div class="cusName">
                    <h3>用户信息</h3>
-                    <span title="闪电组">用户名称：{{session("userinfo['user_name']")}}</span>
-                    <span class="bdTell">手机号绑定<i></i><em>187****3765</em></span>
-                    <span title="我是闪电">邮箱绑定：<i></i></span>
+                    <span title="闪电组">用户名称：{{$userinfo['user_name']}}</span>
+                    <span title="闪电组">手机号绑定：{{$userinfo['user_phone']}}</span>
+                    <span title="我是闪电">邮箱绑定：{{$userinfo['user_email']}}</span>
                 </div>
             </div>
 

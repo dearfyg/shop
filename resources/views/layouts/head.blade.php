@@ -22,7 +22,7 @@
         </li>
         <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
         @if(session("userinfo"))
-        <li><a href="/"><i class="fa fa-user"></i>Personal Center</a></li>
+        <li><a href="/center"><i class="fa fa-user"></i>Personal Center</a></li>
         @endif
         <li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contact Us</a></li>
         @if(empty(session("userinfo")))
