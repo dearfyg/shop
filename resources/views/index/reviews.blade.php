@@ -75,8 +75,8 @@
             <dl>
                 <dt>查看</dt>
                 <dd>
-                    <p><a  target="_blank">我的信息</a></p>
-                    <p><a href="/center/reviews" >我的评论</a></p>
+                    <p><a href="/center">我的信息</a></p>
+                    <p><a  target="_blank">我的评论</a></p>
                     <p><a href="/wish" target="_blank">我的收藏</a></p>
                     <p><a href="/cartlist" target="_blank">购物车</a></p>
                     <p><a href="/prize/prize" target="_blank">抽奖</a></p>
@@ -93,10 +93,14 @@
 
                 </div>
                 <div class="cusName">
-                   <h3>用户信息</h3>
-                    <span title="闪电组">用户名称：{{session("userinfo['user_name']")}}</span>
-                    <span class="bdTell">手机号绑定<i></i><em>187****3765</em></span>
-                    <span title="我是闪电">邮箱绑定：<i></i></span>
+                    <h3>评论一览</h3>
+                    @foreach($reviews as $v)
+                        <tr>
+                            <td>
+                                <h3>{{date("Y-m-d H:i:s",$v->reviews_time)}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/goods/detail?goods_id={{$v->goods_id}}">{{$v->content}}</a></h3>
+                             </td>
+                        </tr>
+                        @endforeach
                 </div>
             </div>
 

@@ -210,11 +210,17 @@ class AlipayTradeService {
 	function check($arr){
 		$aop = new AopClient();
 		$aop->alipayrsaPublicKey = $this->alipay_public_key;
-		$result = $aop->rsaCheckV2($arr, $this->alipay_public_key, $this->signtype);
+		$result = $aop->rsaCheckV1($arr, $this->alipay_public_key, $this->signtype);
 
 		return $result;
 	}
-	
+    function check1($arr){
+        $aop = new AopClient();
+        $aop->alipayrsaPublicKey = $this->alipay_public_key;
+        $result = $aop->rsaCheckV2($arr, $this->alipay_public_key, $this->signtype);
+
+        return $result;
+    }
 	/**
 	 * 请确保项目文件有可写权限，不然打印不了日志。
 	 */

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Goods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use App\Model\Reviews;
 class IndexController extends Controller
 {
     public function index(){
@@ -59,5 +60,17 @@ class IndexController extends Controller
     }
     public function duty(){
 
+    }
+    /*
+     * 个人中心查看评论
+     */
+    public function reviews(){
+        //获取用户id
+        $userinfo=session("userinfo");
+        $user_id=$userinfo['user_id'];
+        $reviews=Reviews::where("user_id",3)
+            ->orderBy("reviews_time","desc")
+            ->get();//查询数据库中该用户的评论
+        return view("index.reviews",['reviews'=>$reviews]);
     }
 }

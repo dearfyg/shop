@@ -6,7 +6,7 @@
             <a href="{{url('/')}}"><i class="fa fa-home"></i></a>
         </div>
         <div class="col s2">
-            <a href="wishlist.html"><i class="fa fa-heart"></i></a>
+            <a href="{{url('/wish')}}"><i class="fa fa-heart"></i></a>
         </div>
         <div class="col s4">
             <div class="bar-center">
@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="col s4">
-                    <a href="wishlist.html" class="button-link">
+                    <a href="{{url('/wish')}}" class="button-link">
                         <div class="menu-link">
                             <div class="icon">
                                 <i class="fa fa-heart"></i>

@@ -37,19 +37,19 @@
     <div class="container">
         <div class="shop-single">
 
-            <img src="{{env("APP_URL")}}{{"/storage/public/".$data["goods_img"]}}" alt="">
+            <img src="{{env("APP_URL")}}{{"/storage/".$data["goods_img"]}}" alt="">
             <h5>{{$data["goods_name"]}}</h5>
             <div class="price">${{$data["goods_price"]}} <p>积分:<span>{{$data["goods_score"]}}</span></p></div>
             <p>{{$data["goods_desc"]}}</p>
             <h2> 该商品浏览量为<font color="red" size="18">{{$sum}}</font></h2>
             <a type="button" class="btn button-default gocart"  goods_id="{{$data['goods_id']}}" href="javascript:;">加入购物车</a>
-
+            <a type="button" class="btn button-default" id="gowish"  goods_id="{{$data['goods_id']}}" href="javascript:;">收藏</a>
         </div>
         <div class="prism-player" id="player-con"></div>
         <script>
             var player = new Aliplayer({
                     "id": "player-con",
-                    "source": "{{$video["video_m3u8"]}}",
+                    "source": "{{$video}}",
                     "width": "20%",
                     "height": "300px",
                     "autoplay": true,
@@ -72,18 +72,20 @@
 
 
         <div class="review">
-            <h5>1 reviews</h5>
+            <h5>{{count($reviews)}} reviews</h5>
             <div class="review-details">
                 <div class="row">
-                    <div class="col s3">
-                        <img src="/static/index/img/user-comment.jpg" alt="" class="responsive-img">
-                    </div>
+
                     @foreach($reviews as $v)
                     <div class="col s9">
                         <div class="review-title">
-                            <span><strong>{{$v->user_id}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v->reviews_time)}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">Reply</a></span>
+                            <p>
+                            <span><strong>{{$v['user_id']}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{date('Y-m-d H:i:s',$v['reviews_time'])}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="">Reply</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-trash del" reviews_id="{{$v['reviews_id']}}"></i>
+                            </p>
                         </div>
-                        <p>{{$v->content}}</p>
+                        <p>{{$v['content']}}</p>
                     </div>
                         @endforeach
                 </div>
@@ -120,6 +122,7 @@
 <!-- scripts -->
 <script src="/static/index/js/cart.js"></script>
     <script>
+        //点击评论
         $("#reviews").click(function(){
             var content =$("#textarea1").val();
             var goods_id= $(this).attr("goods_id");
@@ -132,12 +135,44 @@
                 function(res){
                     if(res.code==000000){
                         alert(res.msg);
-                    }else{
+                        window.location.reload()
+                    }else if(res.code==100006){
                         alert(res.msg);
+                        location.href="/login"
                     }
-                    window.location.reload()
+                }
+            )
+        })
+        //点击删除评论
+        $(".del").click(function(){
+            if(window.confirm("是否确认删除该评论")){
+                var reviews_id=$(this).attr("reviews_id")//获取评论id
+                $.get(
+                    "/reviews/del",
+                    {reviews_id:reviews_id},
+                    function(res){
+                        if(res.code==000000){
+                            alert(res.msg)
+                            window.location.reload();
+                        }else{
+                            alert(res.msg)
+                        }
+                    }
+                )
+            }else{
+                alert("不要瞎点!")
+            }
+        })
+        $("#gowish").click(function(){
+            var goods_id=$(this).attr("goods_id")
+            $.get(
+                "/wish/add",
+                {goods_id:goods_id},
+                function(res){
+                    alert(res.msg)
                 }
             )
         })
     </script>
+
 @endsection

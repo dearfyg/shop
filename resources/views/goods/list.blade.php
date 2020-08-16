@@ -55,7 +55,7 @@
             @foreach($data as $v)
                 <div class="col s6">
                     <div class="content">
-                        <img src="{{env("APP_URL")}}{{"/storage/public/".$v["goods_img"]}}" alt="">
+                        <img src="{{env("APP_URL")}}{{"/storage/".$v["goods_img"]}}" alt="">
                         <h6><a href="{{'/goods/detail?goods_id='.$v["goods_id"]}}">{{$v["goods_name"]}}</a></h6>
                         <div class="price">
                             {{$v["goods_price"]}}
