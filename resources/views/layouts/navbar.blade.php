@@ -171,14 +171,25 @@
                     </a>
                 </div>
                 <div class="col s4">
-                    <a href="{{url("/login")}}" class="button-link">
-                        <div class="menu-link">
-                            <div class="icon">
-                                <i class="fa fa-sign-in"></i>
+                    @if(empty(session("userinfo")))
+                        <a href="{{url("/login")}}" class="button-link">
+                            <div class="menu-link">
+                                <div class="icon">
+                                    <i class="fa fa-sign-in"></i>
+                                </div>
+                                Login
                             </div>
-                            Login
-                        </div>
-                    </a>
+                        </a>
+                    @else
+                        <a href="{{url("/quit")}}" class="button-link">
+                            <div class="menu-link">
+                                <div class="icon">
+                                    <i class="fa fa-sign-in"></i>
+                                </div>
+                                Quit
+                            </div>
+                        </a>
+                    @endif
                 </div>
                 <div class="col s4">
                     <a href="{{url("/register")}}" class="button-link">

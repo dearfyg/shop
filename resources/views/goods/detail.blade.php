@@ -49,7 +49,7 @@
         <script>
             var player = new Aliplayer({
                     "id": "player-con",
-                    "source": "{{$video["video_m3u8"]}}",
+                    "source": "{{$video}}",
                     "width": "20%",
                     "height": "300px",
                     "autoplay": true,

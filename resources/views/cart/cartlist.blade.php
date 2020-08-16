@@ -17,7 +17,7 @@
                             <h5>Image</h5>
                         </div>
                         <div class="col s7">
-                            <img src="{{env("APP_URL")}}{{"/storage/public/".$v["goods_img"]}}" alt="">
+                            <img src="{{env("APP_URL")}}{{"/storage/".$v["goods_img"]}}" alt="">
                         </div>
                     </div>
                     <div class="row">
