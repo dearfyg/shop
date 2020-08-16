@@ -225,7 +225,7 @@ class LoginController extends Controller
         $data["user_pwd"]=password_hash($data["user_pwd"],PASSWORD_DEFAULT);
         $res=User::create($data);
         if($res){
-            session(["userinfo"=>$data]);
+            session(["userinfo"=>$res]);
             return redirect("/");
         }else{
             return redirect("/register");
@@ -240,8 +240,7 @@ class LoginController extends Controller
         if(!$phone){
             return $this->returnArr(0,"参数缺失");
         }
-        //$code=rand(100000,999999);
-        $code=111111;
+        $code=rand(100000,999999);
         //将验证码存入redis五分钟有效
         $uuid=$_COOKIE["uuid"];
         Redis::set($uuid,$code);
