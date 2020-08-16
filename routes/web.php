@@ -44,6 +44,10 @@ Route::post("/order/notify_url","Index\OrderController@notify_url"); //支付成
 
 
 
+Route::get("/wish","Index\WishController@wish_list");//收藏列表
+Route::get("/wish/add","Index\WishController@wish_add");//收藏列表
+Route::get("/wish/del","Index\WishController@wish_del");//取消收藏
+
 
 Route::get("/cart/add","Index\CartController@cart_add");//添加购物车
 Route::get("/cartlist","Index\CartController@cartlist");//购物车列表
@@ -54,12 +58,14 @@ Route::get("cart/subtotal","Index\CartController@subtotal");//结算小计方法
 Route::get("/blog/list","Index\BlogController@list");       //博客列表
 Route::get("/blog/detail","Index\BlogController@detail");       //博客详情
 Route::post("/goods/reviews","Index\GoodsController@reviews");//评论
+Route::get("/reviews/del","Index\GoodsController@reviewsDel");//评论删除
 
 Route::get("goods/rob","Index\GoodsController@rob");//抢购
 Route::get("sign","Index\IndexController@sign");//签到
 Route::get("decode","Cron\VideoController@decoder");//解码
 
 Route::get("center","Index\IndexController@center");//个人中心
+Route::get("/center/reviews","Index\IndexController@reviews");//个人中心评论总览
 Route::prefix("prize")->Group(function(){
     //抽奖页面
     Route::get("prize","Prize\PrizeController@prize");//抽奖页面
