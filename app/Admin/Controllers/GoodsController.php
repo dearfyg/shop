@@ -63,7 +63,9 @@ class GoodsController extends AdminController
     {
         $show = new Show(Goods::findOrFail($id));
 
-        $show->field('goods_id', __('Goods id'));
+        $show->field('goods_id', __('Goods id'))->display(function ($id){
+            return "<a href='/goods/detail?goods_id={$id}'>详情</a>";
+        });
         $show->field('goods_name', __('Goods name'));
         $show->field('goods_price', __('Goods price'));
         $show->field('goods_num', __('Goods num'));

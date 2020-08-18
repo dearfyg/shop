@@ -28,7 +28,7 @@ class OrderController extends AdminController
         $grid->model()->orderBy('order_id','desc');
         $grid->column('order_id', __('订单ID'));
         $grid->column('order_no', __('订单号'));
-        $grid->column('order.goods_name', __('商品名称'));
+        //$grid->column('order.goods_name', __('商品名称'));
         $grid->column('user_id', __('购买人'));
         $grid->column('order_time', __('购买时间'))->display(function($time){
             return date('Y-m-d H:i:s',$time);
