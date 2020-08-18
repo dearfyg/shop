@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="http://www.yingmoo.com/img/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/index/css/common.css" />
-    <link rel="stylesheet" href="/static/index/css/shopsManager.css" />
-    <script type="text/javascript" src="/static/index/js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="/static/index/js/common.js" ></script>
-    <script type="text/javascript" src="/static/index/js/navTop.js"></script>
-    <script type="text/javascript" src="/static/index/js/jquery.circliful.min.js"></script>
+    <link rel="stylesheet" href="{{env("APP_URL")}}/static/index/css/common.css" />
+    <link rel="stylesheet" href="{{env("APP_URL")}}/static/index/css/shopsManager.css" />
+    <script type="text/javascript" src="{{env("APP_URL")}}/static/index/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="{{env("APP_URL")}}/static/index/js/common.js" ></script>
+    <script type="text/javascript" src="{{env("APP_URL")}}/static/index/js/navTop.js"></script>
+    <script type="text/javascript" src="{{env("APP_URL")}}/static/index/js/jquery.circliful.min.js"></script>
     <title>店铺管理中心</title>
 </head>
 
@@ -55,7 +55,7 @@
 <div class="shop_wrap">
     <div class="c100 nav_wrap">
         <div class="fl shop_logo">
-            <img src="/static/index/img/sd.jpg" width="50"  height="50"/>
+            <img src="{{env("APP_URL")}}/static/index/img/sd.jpg" width="50"  height="50"/>
             <a href="/" title="主站" class="midMag">主站</a>
         </div>
         <div class="fl nav act_nav">

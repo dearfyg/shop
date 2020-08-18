@@ -144,7 +144,20 @@
             <div class="divider-top"></div>
             <div class="divider-bottom"></div>
         </div>
-
+        <div class="row">
+            @foreach($hot as $h)
+                <div class="col s6">
+                    <div class="content">
+                        <img src="{{env("APP_URL")}}{{"/storage/".$h->goods_img}}" alt="">
+                        <h6><a href="{{url('/goods/detail?goods_id=').$h->goods_id}}">{{$h->goods_name}}</a></h6>
+                        <div class="price">
+                            ${{$h->goods_price}}
+                        </div>
+                        <a class="btn button-default" href="{{url('/cart/add?goods_id=').$n->goods_id}}">ADD TO CART</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
         <div class="pagination-product">
         </div>
     </div>
@@ -160,5 +173,5 @@
 <!-- end footer -->
 
 <!-- scripts -->
-<script src="/static/index/js/cart.js"></script>
+<script src="{{env("APP_URL")}}/static/index/js/cart.js"></script>
 @endsection

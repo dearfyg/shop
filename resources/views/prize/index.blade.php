@@ -4,7 +4,7 @@
     <center><h1><b><a href="javascript:;" id="ok">开始抽奖</a></b></h1>
     <h1>--仅显示最近中奖的前十名--</h1> </center><br>
     @foreach($info as $k=>$v)
-    <h2>中奖用户:{{$v->user_name}} 手机号:{{substr_replace($v->user_phone,"****",3,4)}}</h2><br>
+    <h2>中奖用户:{{$v->user_name}} 手机号:{{substr_replace($v->user_phone,"****",3,4)}}  奖品名称:{{$v->prize_name}}</h2><br>
     @endforeach
     tip:请及时联系 <a href="javascript:;">客服</a>领奖
     <center>

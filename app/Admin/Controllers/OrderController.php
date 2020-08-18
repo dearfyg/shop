@@ -30,6 +30,9 @@ class OrderController extends AdminController
         $grid->column('user_id', __('购买人'));
         $grid->column('order_time', __('购买时间'));
         $grid->column('buy_num', __('购买数量'));
+        $grid->column("status",__("支付状态"))->display(function($released){
+            return $released ? "<font color='green'>已支付</font>" : "<font color='red'>未支付</font>";
+        });
 
         return $grid;
     }

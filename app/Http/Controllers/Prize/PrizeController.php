@@ -15,8 +15,7 @@ class PrizeController extends Controller
      ***/
     public function prize(){
         //中奖用户倒叙
-        $info = Userprize::select("user.*")
-            ->leftjoin('user','user_prize.user_id','=','user.user_id')
+        $info = Userprize::leftjoin('user','user_prize.user_id','=','user.user_id')
             ->orderby("id","desc")
             ->take(10)
             ->get();
@@ -64,6 +63,7 @@ class PrizeController extends Controller
             $data = [
                 "user_id" => session("user_id"),
                 "prize_id" => 1,
+                "prize_name"=>"iPhone11",
                 "prize_time"=>time(),
                 "prize_last"=>time(),
             ];
@@ -97,6 +97,7 @@ class PrizeController extends Controller
             $data = [
                 "user_id" => session("user_id"),
                 "prize_id" => 2,
+                "prize_name"=>"李昱民袜子",
                 "prize_time"=>time(),
                 "prize_last"=>time(),
             ];

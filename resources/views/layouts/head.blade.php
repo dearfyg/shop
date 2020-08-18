@@ -17,7 +17,7 @@
 <div class="side-nav-panel-right">
     <ul id="slide-out-right" class="side-nav side-nav-panel collapsible">
         <li class="profil">
-            <img src="static/index/img/tou.jpeg" alt="">
+            <img src="{{env("APP_URL")}}/static/index/img/tou.jpeg" alt="">
             <h2>{{session("userinfo.user_name")}}</h2>
         </li>
         <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>

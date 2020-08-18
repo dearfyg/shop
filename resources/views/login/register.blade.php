@@ -81,7 +81,7 @@
                 }
             })
             //将按钮改为秒数
-            $("#gain").text("5s");
+            $("#gain").text("60s");
             $("button").attr("disabled","true");
             //设置每秒提示
             times=setInterval(gotime,1000)

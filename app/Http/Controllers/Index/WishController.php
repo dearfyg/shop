@@ -14,7 +14,7 @@ class WishController extends Controller
         //获取用户id
         $userinfo=session("userinfo");
          if(!$userinfo){ //判断是否登陆
-             echo ("<script>alert('请您先登录！');location='/'</script>");
+             echo ("<script>alert('请您先登录！');location='/login'</script>");
                 die;
           }
           $user_id=$userinfo['user_id'];
