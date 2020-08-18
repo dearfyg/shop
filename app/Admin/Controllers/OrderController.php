@@ -25,7 +25,7 @@ class OrderController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Order);
-        $grid->model->orderBy('order_id','desc');
+        $grid->model()->orderBy('order_id','desc');
         $grid->column('order_id', __('订单ID'));
         $grid->column('order_no', __('订单号'));
         $grid->column('order.goods_name', __('商品名称'));
