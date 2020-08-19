@@ -12,7 +12,7 @@ class Order extends Model
 public $timestamps = false;
     public function order()
     {
-        return $this->belongsTo(Goods::class,"goods_id","goods_id");
+        return $this->belongsTo(Order_goods::class,"goods_id","goods_id");
     }
 
 

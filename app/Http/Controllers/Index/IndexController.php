@@ -56,7 +56,8 @@ class IndexController extends Controller
     个人中心
      ***/
     public function center(){
-        return view("index.center");
+        $userinfo=session("userinfo");
+        return view("index.center",["userinfo"=>$userinfo]);
     }
     public function duty(){
 
@@ -68,7 +69,7 @@ class IndexController extends Controller
         //获取用户id
         $userinfo=session("userinfo");
         $user_id=$userinfo['user_id'];
-        $reviews=Reviews::where("user_id",3)
+        $reviews=Reviews::where("user_id",$user_id)
             ->orderBy("reviews_time","desc")
             ->get();//查询数据库中该用户的评论
         return view("index.reviews",['reviews'=>$reviews]);

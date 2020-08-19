@@ -15,7 +15,7 @@
     <div class="checkout pages section">
         <div class="container">
             <div class="pages-head">
-                <h2> 您的外部订单号为:{{$order["out_trade_no"]}}</h2>
+                <h2> 您的外部订单号为:{{$order["trade_no"]}}</h2>
             </div>
         </div>
     </div>

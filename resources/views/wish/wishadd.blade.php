@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <script src="/static/index/js/cart.js"></script>
+    <script src="{{env("APP_URL")}}/static/index/js/cart.js"></script>
     <script>
         //删除收藏商品
         $(".del").click(function(){

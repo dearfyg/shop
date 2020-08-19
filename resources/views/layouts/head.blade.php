@@ -17,11 +17,14 @@
 <div class="side-nav-panel-right">
     <ul id="slide-out-right" class="side-nav side-nav-panel collapsible">
         <li class="profil">
-            <img src="static/index/img/tou.jpeg" alt="">
+            <img src="{{env("APP_URL")}}/static/index/img/tou.jpeg" alt="">
             <h2>{{session("userinfo.user_name")}}</h2>
         </li>
         <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
-        <li><a href="/center"><i class="fa fa-user"></i>About Us</a></li>
+
+        @if(session("userinfo"))
+        <li><a href="/center"><i class="fa fa-user"></i>Personal Center</a></li>
+        @endif
         <li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contact Us</a></li>
         @if(empty(session("userinfo")))
         <li><a href="{{url("/login")}}"><i class="fa fa-sign-in"></i>Login</a></li>

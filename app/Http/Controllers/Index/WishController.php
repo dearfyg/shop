@@ -13,6 +13,7 @@ class WishController extends Controller
     public function wish_list(){
         //获取用户id
         $userinfo=session("userinfo");
+
           $user_id=$userinfo['user_id'];
         //获取用户收藏
        $wish= Wish::select("admin_wish.*","admin_goods.goods_id","admin_goods.goods_name","admin_goods.goods_img","admin_goods.goods_price")->
@@ -24,7 +25,6 @@ class WishController extends Controller
        //判断用户有无商品
             if(empty($wish)){
                 echo ("<script>alert('您还没有收藏过商品呢！再转转吧!');location='/'</script>");
-                die;
             }
         return view("wish.wishadd",['wish'=>$wish]);
     }
@@ -53,7 +53,7 @@ class WishController extends Controller
            return $reposn;
        }
         $data=[
-            "user_id"=>3,
+            "user_id"=>$user_id,
             "goods_id"=>$goods_id,
             "add_time"=>time()
         ];

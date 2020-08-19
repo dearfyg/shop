@@ -97,7 +97,7 @@ class LoginController extends Controller
      * github登陆
      */
     public function loginGithub(){
-        $url="https://github.com/login/oauth/authorize?client_id=".env('OAUTH_GITHUB_ID')."&redirect_uri=".env("APP_URL")."/oauth/github";
+        $url="https://github.com/login/oauth/authorize?client_id=".env('OAUTH_GITHUB_ID')."&redirect_uri=".env("APP_ADMINURL")."/oauth/github";
         return redirect($url);
     }
     /**

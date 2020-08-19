@@ -17,7 +17,7 @@ class CheckLogin
     {
         $userinfo=session("userinfo");
         if(!$userinfo){
-            return redirect("/");
+            return redirect("/login");
         }
         return $next($request);
     }

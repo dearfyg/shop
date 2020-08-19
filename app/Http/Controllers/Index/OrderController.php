@@ -17,8 +17,7 @@ class OrderController extends Controller
     //订单列表
     public function order(){
         //获取当前登录的用户
-        //$user_id = session();
-        $user_id = 3;
+        $user_id = session("userinfo.user_id");
         //接商品id
         $goods_id = request()->goods_id;
         //接购买数量
@@ -270,7 +269,7 @@ class OrderController extends Controller
                 die;
             }
             //运行这里说明没错  修改数据库订单表的支付状态
-            $res = Order::where("order_no",$arr["out_trade_no"])->update(["status"=>1]);
+            $res = Order::where("order_no",$arr["out_trade_no"])->update(["status"=>1,"trade_no"=>$arr["trade_no"]]);
             if($res){
                 Log::info("支付成功");
                 echo "success";die;

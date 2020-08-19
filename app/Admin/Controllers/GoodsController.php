@@ -26,8 +26,9 @@ class GoodsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Goods());
-
-        $grid->column('goods_id', __('商品id'));
+        $grid->column('goods_id', __('Goods id'))->display(function ($id){
+            return "<a href='/goods/detail?goods_id={$id}'>详情</a>";
+        });
         $grid->column('goods_name', __('商品名称'));
         $grid->column('goods_price', __('商品价格'));
         $grid->column('goods_num', __('商品库存'));
