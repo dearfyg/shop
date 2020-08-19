@@ -153,7 +153,7 @@
                         <div class="price">
                             ${{$h->goods_price}}
                         </div>
-                        <a class="btn button-default" href="{{url('/cart/add?goods_id=').$n->goods_id}}">ADD TO CART</a>
+                        <a class="btn button-default gocart" goods_id="{{$n->goods_id}}" href="javascript:;">ADD TO CART</a>
                     </div>
                 </div>
             @endforeach
