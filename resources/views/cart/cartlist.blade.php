@@ -136,19 +136,21 @@
             //删除商品
             $(".del").click(function(){
                 var goods_id=$(this).parents("div").attr("goods_id")
-                if(window.confirm("是否删除该商品")){
+                myConfirm("系统确认框","是否删除该商品",function(r){
+                    if(r){
                     var _this=$(this)
-                    $.get(
-                        "/cart/del",
-                        {goods_id:goods_id},
-                        function(res){
-                            _this.parents("#Dbox").attr("style","display:none;")
-                            _this.parents("#Dbox").next("#Dbox1").attr("style","display:none;")
-                            getTotal()
-                            window.location.reload()
-                        }
-                    )
-                }
+                        $.get(
+                            "/cart/del",
+                            {goods_id:goods_id},
+                            function(res){
+                                _this.parents("#Dbox").attr("style","display:none;")
+                                _this.parents("#Dbox").next("#Dbox1").attr("style","display:none;")
+                                getTotal()
+                                window.location.reload()
+                            }
+                        )
+                    }
+                })
             })
         })
 

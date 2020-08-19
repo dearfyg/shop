@@ -1,0 +1,101 @@
+.jsalert{
+    margin: 0 auto;
+    max-width: 260px;
+    min-width: 260px;
+    min-height: 160px;
+    background-color: #444;
+    z-index: 9999;
+    position: absolute;
+    border-radius: 6px;
+    color: #fff;
+    left: calc(50% - 150px);
+    border: 1px solid #111;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.2);
+    transition: top 1s;
+    animation: jsalert-visible 0.5s ease-out forwards;
+}
+.jsalert:focus { outline: none; }
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
+.jsalert h3{
+    margin: 0;
+    padding: 10px;
+    border-radius: 6px 6px 0 0;
+    background-color: #222;
+}
+
+.jsalert p{
+    padding: 0 10px;
+    margin-bottom: 40px;
+}
+
+.jsalert span{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.jsalert button{
+    background-color: #555;
+    border: 0;
+    padding: 5px 8px;
+    min-width: 50px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.jsalert button.jsalert-ok{
+    background-color: dodgerblue;
+}
+
+.jsalert button:hover{
+    background-color: dodgerblue;
+}
+
+.jsalert input {
+    background-color: #555;
+    border: 1px solid #333;
+    width: 100%;
+    color: #fff;
+}
+
+
+@keyframes jsalert-visible {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+@-moz-keyframes jsalert-visible {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes jsalert-visible {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

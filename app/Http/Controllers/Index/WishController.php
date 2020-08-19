@@ -13,10 +13,6 @@ class WishController extends Controller
     public function wish_list(){
         //获取用户id
         $userinfo=session("userinfo");
-         if(!$userinfo){ //判断是否登陆
-             echo ("<script>alert('请您先登录！');location='/'</script>");
-                die;
-          }
           $user_id=$userinfo['user_id'];
         //获取用户收藏
        $wish= Wish::select("admin_wish.*","admin_goods.goods_id","admin_goods.goods_name","admin_goods.goods_img","admin_goods.goods_price")->

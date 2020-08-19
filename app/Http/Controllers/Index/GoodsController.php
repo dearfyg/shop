@@ -141,7 +141,7 @@ class GoodsController extends Controller
         }
         //获取用户id
         $user_info=session("userinfo");
-        if($user_info){
+        if(!$user_info){
               $repson=[
                   'code'=>100006,
                     'msg'=>'请您先登录'

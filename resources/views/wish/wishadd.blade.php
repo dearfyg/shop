@@ -57,8 +57,10 @@
                 "/wish/del",
                 {goods_id:goods_id},
                 function(res){
-                    alert(res.msg)
-                    window.location.reload()
+                    myAlert("系统通知",res.msg,function () {
+                        window.location.reload()
+                    })
+
                 }
             )
         })

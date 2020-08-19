@@ -7,7 +7,9 @@ $(".gocart").click(function() {
         "/cart/add",
         {goods_id: goods_id},
         function (res) {
-            alert(res.msg)
+            myAlert("系统提示",res.msg,function(){
+
+            })
         }
     )
 })

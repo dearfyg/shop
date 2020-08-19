@@ -127,17 +127,22 @@
             var content =$("#textarea1").val();
             var goods_id= $(this).attr("goods_id");
             if(content==''){
-                alert("评论不能为空")
+                myAlert("系统通知","评论不能为空",function () {
+
+                })
             }
             $.post(
                 "/goods/reviews",
                 {content:content,goods_id:goods_id},
                 function(res){
                     if(res.code==000000){
-                        alert(res.msg);
-                        window.location.reload()
+                        myAlert("系统通知",res.msg,function () {
+                            window.location.reload()
+                        });
                     }else if(res.code==100006){
-                        alert(res.msg);
+                        myAlert("系统通知",res.msg,function () {
+
+                        });
                         location.href="/login"
                     }
                 }
@@ -152,10 +157,14 @@
                     {reviews_id:reviews_id},
                     function(res){
                         if(res.code==000000){
-                            alert(res.msg)
+                            myAlert("系统通知",res.msg,function () {
+                                
+                            })
                             window.location.reload();
                         }else{
-                            alert(res.msg)
+                            myAlert("系统通知",res.msg,function () {
+                                
+                            })
                         }
                     }
                 )
@@ -169,7 +178,9 @@
                 "/wish/add",
                 {goods_id:goods_id},
                 function(res){
-                    alert(res.msg)
+                    myAlert("系统通知",res.msg,function(){
+
+                    })
                 }
             )
         })

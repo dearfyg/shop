@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
+
     <title>@yield('title')</title>
     <script src="/static/index/js/js.cookie-2.2.1.min.js"></script>
     <script src="/static/index/js/init.js"></script>
@@ -29,6 +30,7 @@
     <script src="/static/index/js/fakeLoader.min.js"></script>
     <script src="/static/index/js/animatedModal.min.js"></script>
     <script src="/static/index/js/main.js"></script>
+    <script src="/static/index/js/alert.js"></script>
 </head>
 <body>
 {{--头部--}}
