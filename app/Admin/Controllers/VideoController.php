@@ -30,7 +30,7 @@ class VideoController extends AdminController
     {
 
         $grid = new Grid(new Video());
-
+        $grid->model()->orderBy('id','desc');   //根据id倒叙
         $grid->column('id', __('Id'));
         $grid->column('video_title', __('Video title'));
         $grid->column('video_url', __('Video url'));

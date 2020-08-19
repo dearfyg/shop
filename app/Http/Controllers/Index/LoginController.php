@@ -105,6 +105,10 @@ class LoginController extends Controller
      */
     public function github(){
         //接受github返回的code
+        if(empty($_GET["code"])){
+            //登陆失败
+            return redirect("/login")->with("msg","登陆失败");
+        }
         $code=$_GET["code"];
         //换取access_token
         $token=$this->getToken($code);

@@ -26,6 +26,7 @@ class GoodsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Goods());
+        $grid->model()->orderBy('goods_id','desc'); //根据id倒叙
         $grid->column('goods_id', __('Goods id'))->display(function ($id){
             return "<a href='/goods/detail?goods_id={$id}'>详情</a>";
         });
