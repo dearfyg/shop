@@ -24,6 +24,7 @@ class OrderController extends AdminController
      */
     protected function grid()
     {
+
         $grid = new Grid(new Order);
         $grid->model()->orderBy('order_id','desc');
         $grid->column('order_id', __('订单ID'));
@@ -37,7 +38,7 @@ class OrderController extends AdminController
         $grid->column("status",__("支付状态"))->display(function($released){
             return $released ? "<font color='green'>已支付</font>" : "<font color='red'>未支付</font>";
         });
-
+        $grid->disableActions();
         return $grid;
     }
 

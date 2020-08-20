@@ -19,5 +19,6 @@ Route::group([
     $router->resource('/order', OrderController::class);
 
     $router->resource('videos', VideoController::class);
+    $router->resource('/prize', PrizeController::class);
 
 });

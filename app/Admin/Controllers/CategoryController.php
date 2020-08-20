@@ -25,7 +25,6 @@ class CategoryController extends Controller
         return Admin::content(function ($content) {
             $content->header('商品分类管理');
             $content->body(Category::tree(function ($tree) {
-
             }));
         });
     }
@@ -43,6 +42,7 @@ class CategoryController extends Controller
             ->header(trans('admin.detail'))
             ->description(trans('admin.description'))
             ->body($this->detail($id));
+
     }
 
     /**
@@ -89,7 +89,9 @@ class CategoryController extends Controller
         $grid->cate_name('cate_name');
         $grid->created_at(trans('admin.created_at'));
         $grid->updated_at(trans('admin.updated_at'));
-
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableDelete(); //禁止行级删除路由
+        });
         return $grid;
     }
 
@@ -109,7 +111,6 @@ class CategoryController extends Controller
         $show->cate_name('cate_name');
         $show->created_at(trans('admin.created_at'));
         $show->updated_at(trans('admin.updated_at'));
-
         return $show;
     }
 

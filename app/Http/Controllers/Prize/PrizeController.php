@@ -59,11 +59,12 @@ class PrizeController extends Controller
             }
             //运行到这里说明中奖
             DB::beginTransaction(); //开启事务
+            $prize_name = Prize::where("prize_leavel",1)->value("prize_name");
             //添加到中奖表
             $data = [
                 "user_id" => session("user_id"),
                 "prize_id" => 1,
-                "prize_name"=>"iPhone11",
+                "prize_name"=>$prize_name,
                 "prize_time"=>time(),
                 "prize_last"=>time(),
             ];
@@ -93,11 +94,12 @@ class PrizeController extends Controller
             }
             //运行到这里说明中奖
             DB::beginTransaction(); //开启事务
+            $prize_name = Prize::where("prize_leavel",2)->value("prize_name");
             //添加到中奖表
             $data = [
                 "user_id" => session("user_id"),
                 "prize_id" => 2,
-                "prize_name"=>"李昱民袜子",
+                "prize_name"=>$prize_name,
                 "prize_time"=>time(),
                 "prize_last"=>time(),
             ];
