@@ -26,7 +26,7 @@ Route::post("/reg/name","Index\LoginController@name");   //验证用户名
 
 
 
-Route::get("/","Index\IndexController@index");     //首页
+Route::get("/","Index\IndexController@index")->middleware("checklogin")->middleware("checkmobile");     //首页
 
 Route::get("/goods/list","Index\GoodsController@list");     //产品列表
 Route::get("/goods/detail","Index\GoodsController@detail");     //产品详情
@@ -64,3 +64,4 @@ Route::post("/login/loginDo","LoginController@loginDo");//登陆方法
 
 Route::get("/cron","CronController@cron");
 
+Route::get("chat","chat\ChatController@chat");

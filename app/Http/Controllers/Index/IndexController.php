@@ -10,6 +10,7 @@ class IndexController extends Controller
 {
     public function index(){
         //文件名
+//        echo "<pre>";print_r($_SERVER);"<pre>";die;
         $fileName = "index.html";
         //过期时间
         $cache = 10;
