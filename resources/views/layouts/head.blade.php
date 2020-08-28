@@ -22,16 +22,22 @@
         </li>
         <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
 
-        @if(session("userinfo"))
+        @if($_SERVER["is_login"]==1)
         <li><a href="/center"><i class="fa fa-user"></i>Personal Center</a></li>
         @endif
         <li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contact Us</a></li>
-        @if(empty(session("userinfo")))
-        <li><a href="{{url("/login")}}"><i class="fa fa-sign-in"></i>Login</a></li>
+        @if($_SERVER["is_login"]==0)
+        <li>
+            <a href="{{env('PASS_PORT')."/web/login".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}">
+            <i class="fa fa-sign-in">
+            </i>
+            Login
+            </a>
+        </li>
         @else
-        <li><a href="{{url("/quit")}}"><i class="fa fa-sign-in"></i>Quit</a></li>
+        <li><a href="{{env('PASS_PORT')."/web/quit".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-sign-in"></i>Quit</a></li>
         @endif
-        <li><a href="{{url("/register")}}"><i class="fa fa-user-plus"></i>Register</a></li>
+        <li><a href="{{env('PASS_PORT')."/web/register".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-user-plus"></i>Register</a></li>
     </ul>
 </div>
 <!-- end side nav right-->

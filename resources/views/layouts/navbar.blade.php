@@ -171,7 +171,7 @@
                     </a>
                 </div>
                 <div class="col s4">
-                    @if(empty(session("userinfo")))
+                    @if($_SERVER["is_login"]==0)
                         <a href="{{url("/login")}}" class="button-link">
                             <div class="menu-link">
                                 <div class="icon">
