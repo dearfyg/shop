@@ -74,7 +74,7 @@ class VideoController extends AdminController
         $form->text('video_title', __('Video title'))->value($name);
         //处理
         $form->file('video_url', __('Video url'))->uniqueName()->move("video");
-        $form->number('goods_id', __('Goods id'))->value($id);
+        $form->text('goods_id', __('Goods id'))->value($id);
         return $form;
     }
 }

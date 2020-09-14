@@ -27,9 +27,9 @@ class PrizeController extends Controller
     public function prizeDo(){
         session("userinfo.user_id");
         //查询用户抽奖机会
-        $prize = User::select("prize")->first("user_id",session("user_id"));
+        $prize = User::where("user_id",session("userinfo.user_id"))->value("prize");
         //查看抽奖机会是否充足
-        if($prize->prize <=0){
+        if($prize<=0){
             //不充足提示机会已用完
             $data = [
                 "code"=>"您今日抽奖机会已用完",
@@ -37,9 +37,9 @@ class PrizeController extends Controller
             return $data;
         }else{
             //充足更新抽奖次数
-            $count = $prize->prize - 1;
+            $count = $prize - 1;
 
-            User::where("user_id",session("user_id"))->update(["prize"=>$count]);
+            User::where("user_id",session("userinfo.user_id"))->update(["prize"=>$count]);
         }
         $count = rand(1,1000);
         //获取一等奖中奖的概率
@@ -59,10 +59,10 @@ class PrizeController extends Controller
             }
             //运行到这里说明中奖
             DB::beginTransaction(); //开启事务
-            $prize_name = Prize::where("prize_leavel",1)->value("prize_name");
+            $prize_name = Prize::where("prize_level",1)->value("prize_name");
             //添加到中奖表
             $data = [
-                "user_id" => session("user_id"),
+                "user_id" => session("userinfo.user_id"),
                 "prize_id" => 1,
                 "prize_name"=>$prize_name,
                 "prize_time"=>time(),
@@ -94,10 +94,10 @@ class PrizeController extends Controller
             }
             //运行到这里说明中奖
             DB::beginTransaction(); //开启事务
-            $prize_name = Prize::where("prize_leavel",2)->value("prize_name");
+            $prize_name = Prize::where("prize_level",2)->value("prize_name");
             //添加到中奖表
             $data = [
-                "user_id" => session("user_id"),
+                "user_id" => session("userinfo.user_id"),
                 "prize_id" => 2,
                 "prize_name"=>$prize_name,
                 "prize_time"=>time(),
