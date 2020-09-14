@@ -21,6 +21,7 @@ class Checklogin
         $token = substr($token,strpos($token,"|")+1);
         //判断是否存在
         $url = "http://passport.shop1.com/api/login?token=".$token;
+        $url = env('PASS_PORT') . "/api/login?token=".$token;
         //发送get请求
         $check = file_get_contents($url);
         //判断是否成功
