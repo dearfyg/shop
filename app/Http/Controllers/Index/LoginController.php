@@ -299,7 +299,7 @@ class LoginController extends Controller
         // Download：https://github.com/aliyun/openapi-sdk-php
         // Usage：https://github.com/aliyun/openapi-sdk-php/blob/master/README.md
 
-        AlibabaCloud::accessKeyClient('LTAI4FtjShQ7uxBcxCRGZmN9', 'jwYGmfLavtAL7RBCyntGcztfcmHzZa')
+        AlibabaCloud::accessKeyClient(env("APP_ACCESSKEY"), env("APP_CLIEN"))
             ->regionId('cn-hangzhou')
             ->asDefaultClient();
 
