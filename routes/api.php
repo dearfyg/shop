@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get("/goods","Api\GoodsController@goods");//商品列表Api
 Route::get("/goodsdetail","Api\GoodsController@detail");//商品列表Api
+Route::get("/search","Api\GoodsController@search");//商品列表Api

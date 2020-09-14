@@ -13,11 +13,17 @@ class GoodsController extends Controller
         //返回json
         return $this->Json("00000","成功",$goodsInfo);
     }
+    //详情
     public function detail(){
        $id = request()->id;
         //查询
         $goodsInfo = Goods::find($id);
         //返回json
         return $this->Json("000000","成功",$goodsInfo);
+    }
+    //轮播图
+    public function search(){
+        $image = Goods::select("goods_img","goods_id")->where("is_up",1)->get();
+        return $this->Json("00000","成功",$image);
     }
 }

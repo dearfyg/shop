@@ -20,24 +20,24 @@
             <img src="{{env("APP_URL")}}/static/index/img/tou.jpeg" alt="">
             <h2>{{session("userinfo.user_name")}}</h2>
         </li>
-        <li><a href="setting.html"><i class="fa fa-cog"></i>Settings</a></li>
+        <li><a href="setting.html"><i class="fa fa-cog"></i>设置</a></li>
 
         @if($_SERVER["is_login"]==1)
-        <li><a href="/center"><i class="fa fa-user"></i>Personal Center</a></li>
+        <li><a href="/center"><i class="fa fa-user"></i>个人中心</a></li>
         @endif
-        <li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contact Us</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope-o"></i>联系我们</a></li>
         @if($_SERVER["is_login"]==0)
         <li>
             <a href="{{env('PASS_PORT')."/web/login".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}">
             <i class="fa fa-sign-in">
             </i>
-            Login
+            登录
             </a>
         </li>
         @else
-        <li><a href="{{env('PASS_PORT')."/web/quit".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-sign-in"></i>Quit</a></li>
+        <li><a href="{{env('PASS_PORT')."/web/quit".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-sign-in"></i>退出登录</a></li>
         @endif
-        <li><a href="{{env('PASS_PORT')."/web/register".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-user-plus"></i>Register</a></li>
+        <li><a href="{{env('PASS_PORT')."/web/register".'?return_url='.env("APP_URL").$_SERVER['REQUEST_URI']}}"><i class="fa fa-user-plus"></i>注册</a></li>
     </ul>
 </div>
 <!-- end side nav right-->
