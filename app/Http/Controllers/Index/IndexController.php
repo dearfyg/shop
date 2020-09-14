@@ -7,6 +7,7 @@ use App\Model\Goods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use App\Model\Reviews;
+use Illuminate\Support\Facades\Cookie;
 class IndexController extends Controller
 {
     public function index(){

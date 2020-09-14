@@ -50,8 +50,8 @@
                     <div class="icon">
                         <i class="fa fa-car"></i>
                     </div>
-                    <h6>Free Shipping</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                    <h6>免运费</h6>
+                    <p>爱是神圣的</p>
                 </div>
             </div>
             <div class="col s6">
@@ -59,8 +59,8 @@
                     <div class="icon">
                         <i class="fa fa-dollar"></i>
                     </div>
-                    <h6>Money Back</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                    <h6>退款保证</h6>
+                    <p>爱是神圣的</p>
                 </div>
             </div>
         </div>
@@ -70,8 +70,8 @@
                     <div class="icon">
                         <i class="fa fa-lock"></i>
                     </div>
-                    <h6>Secure Payment</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                    <h6>安全支付</h6>
+                    <p>爱是神圣的</p>
                 </div>
             </div>
             <div class="col s6">
@@ -130,7 +130,7 @@
         <div class="content">
             <h4>PRODUCT BUNDLE</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-            <button class="btn button-default">SHOP NOW</button>
+            <button class="btn button-default">加入购物车</button>
         </div>
     </div>
 </div>

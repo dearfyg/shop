@@ -22,7 +22,7 @@ class VideoController extends Controller
                 //开始转码
                 Video::where(['id'=>$id])->update(['video_status'=>1]);      //更新转码状态为 1  开始转码
                 //使得客户端结束连接后，需要大量时间运行的任务能够继续运行。
-//                fastcgi_finish_request();//必须要有此函数否则定时任务会报错
+               fastcgi_finish_request();//必须要有此函数否则定时任务会报错
                 //所需参数
                 //当前视频路径
                 $video_path = $v->video_url;

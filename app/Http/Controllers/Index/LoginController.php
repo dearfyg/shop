@@ -384,4 +384,11 @@ class LoginController extends Controller
             return redirect("/forgot")->with("msg","修改失败");
         }
     }
+    /**聊天室***/
+    public function wechat(){
+        if($_SERVER["is_login"]==0){
+            return redirect(env('PASS_PORT')."/web/login?return_url=http://local.shop1.com/wechat");
+        }
+        return view('wechat.wechat');
+    }
 }

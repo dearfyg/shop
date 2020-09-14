@@ -124,9 +124,9 @@ return [
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
 
-            'prefix' => "",
+            'prefix' => "shop_",
 
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'test'), '_').'_list'),
+//            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'test'), '_').'_list'),
 
         ],
 
