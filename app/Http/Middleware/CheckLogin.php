@@ -17,10 +17,11 @@ class Checklogin
     public function handle($request, Closure $next)
     {
         //获取cookie
-        $token = Cookie::get("token");
-        $token = substr($token,strpos($token,"|")+1);
+//        $token = empty($_COOKIE["token"])?"":$_COOKIE["token"];
+        $token = cookie::get("token");
+//        $token = substr($token,strpos($token,"|")+1);
         //判断是否存在
-        $url = "http://passport.shop1.com/api/login?token=".$token;
+//        $url = "http://passport.shop1.com/api/login?token=".$token;
         $url = env('PASS_PORT') . "/api/login?token=".$token;
         //发送get请求
         $check = file_get_contents($url);
